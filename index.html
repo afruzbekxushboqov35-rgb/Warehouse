@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff7a1a">
+<meta name="description" content="Ombor.uz — omborlarni qidirish, joylashtirish va ijaraga olish platformasi">
+<link rel="manifest" href="manifest.json">
+<title>ombor.uz: ombor ijarasi</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--card:#fff;--ink:#201a15;--mut:#6b5f55;--g:#d9480f;--gd:#b3380a;--gl:#fff1e8;--line:#f2d9c9;--star:#f2a900;--sun:#ffd45c;--box:#d9a35b;--btn-ink:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme="dark"]{--bg:#17110d;--card:#211812;--ink:#f5ece4;--mut:#b9a99b;--g:#ff8a3d;--gd:#ffb27a;--gl:#2d1f15;--line:#4a3426;--sun:#dfe8e3;--box:#a97a3f;--btn-ink:#1a0d05}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,sans-serif}
+header{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 16px;border-bottom:2px solid var(--g);background:var(--card)}
+.logo{font-weight:800;font-size:20px;color:var(--gd);cursor:pointer;background:none;border:0;font-family:inherit;padding:0;display:flex;align-items:center;gap:8px}
+.logo i{display:block;width:16px;height:16px;background:var(--g);border-radius:3px}
+main{max-width:1100px;margin:0 auto;padding:16px}
+h1{font-size:clamp(28px,6.5vw,46px);line-height:1.06;letter-spacing:-.03em;margin:8px 0 10px;font-weight:700}
+h2{font-size:20px;margin:24px 0 10px}
+.sub{color:var(--mut);margin:0 0 16px}
+button,input,select,textarea{font:inherit;color:var(--ink)}
+.btn{font-weight:600;border:2px solid var(--g);background:var(--card);color:var(--gd);padding:9px 14px;border-radius:8px;cursor:pointer}
+.btn.p{background:var(--g);color:var(--btn-ink)}
+.btn:disabled{opacity:.55;cursor:default}
+:focus-visible{outline:3px solid var(--gd);outline-offset:2px}
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:center;padding:12px 0 8px}
+@media(max-width:760px){.hero{grid-template-columns:1fr}}
+.hero .acts{display:grid;gap:12px;max-width:420px;margin-top:18px}
+.hero .acts .btn{font-size:19px;padding:18px;border-radius:12px;text-align:left;display:flex;justify-content:space-between}
+.art{background:var(--gl);border:2px solid var(--g);border-radius:16px;overflow:hidden}
+.art svg{display:block;width:100%;height:auto}
+.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:28px}
+.feat{border:2px solid var(--g);border-radius:12px;padding:16px;background:var(--card)}
+.feat svg{width:34px;height:34px;stroke:var(--g);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feat b{display:block;margin:6px 0 2px}.feat span{color:var(--mut);font-size:14px}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+label{display:block;font-size:13px;color:var(--mut);font-weight:600}
+input,select,textarea{width:100%;padding:10px;border:2px solid var(--g);border-radius:8px;background:var(--card);margin-top:4px}
+.layout{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.layout{grid-template-columns:1fr}}
+.map{background:var(--gl);border:2px solid var(--g);border-radius:12px;aspect-ratio:1/1;max-height:560px;width:100%}
+.map svg{width:100%;height:100%;display:block}
+.pin{cursor:pointer}.pin circle{fill:var(--g);stroke:var(--card);stroke-width:2}.pin text{font:700 9px Inter,sans-serif;fill:var(--btn-ink);text-anchor:middle}
+.pin.sel circle{fill:var(--card);stroke:var(--gd);stroke-width:3}.pin.sel text{fill:var(--gd)}
+.list{display:flex;flex-direction:column;gap:10px;max-height:560px;overflow-y:auto}
+.item{display:flex;gap:12px;background:var(--card);border:2px solid var(--g);border-radius:12px;padding:10px;cursor:pointer}
+.item.sel{background:var(--gl)}
+.item img{width:96px;height:96px;object-fit:cover;border-radius:8px;flex:none;background:var(--gl)}
+.item h3{margin:0;font-size:17px}
+.tag{display:inline-block;font-size:12px;padding:1px 8px;border-radius:99px;border:1.5px solid var(--g);margin:4px 4px 0 0;color:var(--gd)}
+.price{font-weight:800}
+.st{color:var(--star);letter-spacing:1px}.st.off{color:var(--line)}
+.empty{padding:24px;text-align:center;color:var(--mut);border:2px dashed var(--g);border-radius:12px}
+form.box,.panel{background:var(--card);border:2px solid var(--g);border-radius:12px;padding:16px}
+form.box{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;max-width:720px}
+form.narrow{max-width:420px;margin:24px auto;display:grid;gap:12px}
+.full{grid-column:1/-1}
+.chk{display:flex;gap:8px;align-items:center}.chk input{width:auto;margin:0}
+.err{color:#d23b3b;font-weight:600;min-height:20px;margin:0}
+.drop{border:2px dashed var(--g);border-radius:12px;padding:16px;text-align:center;background:var(--gl);cursor:pointer;display:block;color:var(--gd)}
+.drop input{display:none}
+.thumbs{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.thumbs img{width:76px;height:76px;object-fit:cover;border-radius:8px;border:2px solid var(--g)}
+.gal .main{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;border:2px solid var(--g);display:block}
+.gal .thumbs img{cursor:pointer}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.facts div{border:2px solid var(--g);border-radius:12px;padding:8px 12px;background:var(--card)}.facts b{display:block;font-size:18px}
+.rev{border-bottom:1px solid var(--line);padding:10px 0}.rev:last-child{border:0}
+.pick button{background:none;border:0;font-size:30px;color:var(--line);cursor:pointer;padding:0 2px}.pick button.on{color:var(--star)}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+dialog{border:2px solid var(--g);border-radius:14px;background:var(--card);color:var(--ink);max-width:420px;width:calc(100% - 32px);padding:20px}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--gd);color:var(--bg);padding:10px 16px;border-radius:8px;font-weight:600;display:none;z-index:9;max-width:90%}
+.hide{display:none}
+.locbar{display:flex;gap:10px;align-items:end;margin-bottom:12px}.locbar label{flex:1}
+.sbtn{width:48px;height:48px;border:2px solid var(--g);background:var(--g);border-radius:10px;cursor:pointer;display:grid;place-items:center;flex:none}
+.sbtn svg{width:22px;height:22px;stroke:var(--btn-ink);fill:none;stroke-width:2.4;stroke-linecap:round}
+.spanel{margin-bottom:16px}.spanel .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:10px}
+fieldset.types{border:2px solid var(--g);border-radius:12px;margin:0;padding:10px 12px;display:grid;gap:8px;min-width:0}
+fieldset.types legend{font-size:13px;color:var(--mut);font-weight:600;padding:0 6px}
+.list.wide{max-height:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+.map.small{max-width:420px;aspect-ratio:1/1}
+.eyebrow{font:500 12.5px/1.4 'JetBrains Mono',ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin:0 0 14px}
+.hero h1{font-size:clamp(38px,10.5vw,68px);line-height:1.02;letter-spacing:-.035em;font-weight:700;margin:0 0 14px}
+h1 em{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;color:var(--g);letter-spacing:-.01em;font-size:1.12em}
+.lede{font:italic 400 clamp(21px,5.2vw,27px)/1.28 'Instrument Serif',Georgia,serif;color:var(--mut);margin:0 0 6px}
+label:not(.chk):not(.drop):not(.sw),.facts small{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase}
+.hero .acts .btn{border-radius:999px}
+.hero .acts .btn:not(.p){background:var(--gl);border-color:var(--gl)}
+.mono-line{font:500 12px/1.6 'JetBrains Mono',ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-top:22px}
+:root{color-scheme:light}:root[data-theme="dark"]{color-scheme:dark}
+header{position:relative}
+.burger{width:46px;height:46px;border:2px solid var(--g);background:var(--card);color:var(--ink);border-radius:12px;cursor:pointer;display:grid;place-items:center;padding:0}
+.menu{position:absolute;right:16px;top:calc(100% + 8px);z-index:20;background:var(--card);border:2px solid var(--g);border-radius:14px;padding:14px 16px;min-width:240px;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.menu b{display:block;margin-bottom:10px}
+.sw{display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;font-size:15px;color:var(--ink)}
+.sw input{appearance:none;-webkit-appearance:none;width:46px;height:26px;padding:0;border:0;border-radius:99px;background:var(--line);position:relative;cursor:pointer;margin:0;flex:none}
+.sw input::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .15s}
+.sw input:checked{background:var(--g)}.sw input:checked::after{left:23px}
+.stats{border:2px solid var(--g);border-radius:16px;background:var(--gl);padding:18px;display:grid;gap:14px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{background:var(--card);border:2px solid var(--g);border-radius:12px;padding:12px}
+.tile b{display:block;font-size:clamp(24px,7vw,34px);letter-spacing:-.03em;line-height:1.1}
+.tile small{font:500 11px/1.3 'JetBrains Mono',ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.crow{display:grid;grid-template-columns:100px 1fr auto;gap:10px;align-items:center;font-size:14px;margin-top:10px}
+.meter{height:14px;border-radius:99px;background:var(--card);border:2px solid var(--g);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--g)}.meter.o i{background:var(--mut)}
+.titlebar{display:flex;justify-content:space-between;align-items:center;gap:10px}.titlebar h1{margin:8px 0}
+.ic{display:flex;gap:8px}
+.icb{position:relative;width:46px;height:46px;border:2px solid var(--g);background:var(--card);color:var(--gd);border-radius:50%;cursor:pointer;display:grid;place-items:center;padding:0}
+.icb.on{background:var(--g);color:var(--btn-ink)}
+.icb svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.badge{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:99px;background:#d23b3b;color:#fff;font:700 12px/20px Inter,sans-serif;text-align:center}
+.chat{display:flex;flex-direction:column;gap:8px;min-height:240px;max-height:55vh;overflow-y:auto;padding:12px 0}
+.bub{max-width:82%;padding:8px 12px;border-radius:14px;border:2px solid var(--g);background:var(--card);align-self:flex-start;word-break:break-word}
+.bub.me{align-self:flex-end;background:var(--g);color:var(--btn-ink)}
+.cform{display:flex;gap:8px;align-items:center}.cform input{margin:0}
+.col{display:grid;gap:10px;max-width:360px;margin-top:16px}
+.hide{display:none!important}
+
+:root{--line:#e5e7eb;--gl:#f3f4f6;--mut:#6b7280;--ink:#14161a;--pop:#ff7a1a}
+:root[data-theme="dark"]{--bg:#111214;--card:#1a1b1e;--ink:#f2f3f5;--mut:#9aa0a8;--gl:#26272b;--line:#303136;--pop:#ff8a3d}
+main{padding-bottom:104px}
+h1{font-size:clamp(26px,6vw,38px);letter-spacing:-.025em;font-weight:700}
+label:not(.chk):not(.drop):not(.sw),.facts small{font-family:inherit;font-size:14px;letter-spacing:0;text-transform:none;font-weight:500;color:var(--mut)}
+input,select,textarea{border:1px solid var(--line);border-radius:12px}
+.btn{border:1px solid var(--line);border-radius:12px;color:var(--ink)}
+.btn.p{background:var(--g);border-color:var(--g);color:var(--btn-ink)}
+.panel,form.box,.facts div,.tile,.stats,.map,dialog,.item{border:1px solid var(--line)}
+.panel,form.box,.facts div,.tile,.stats,.item{border-radius:16px}
+.stats{background:var(--card)}.empty{border:1px dashed var(--line);border-radius:16px}
+.drop{border:1px dashed var(--line);background:var(--gl);color:var(--mut)}
+.tag{border:1px solid var(--line);background:var(--gl);color:var(--ink)}
+.gal .main,.thumbs img{border:1px solid var(--line)}
+.meter{border:1px solid var(--line);background:var(--gl)}
+.bub{border:1px solid var(--line)}.bub.me{border-color:var(--g)}
+.toast{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+header{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 16px}
+.logo{font-size:26px;font-weight:800;letter-spacing:-.04em;color:var(--ink)}.logo span{color:var(--g)}
+.hr{display:flex;gap:10px;align-items:center}
+.icb{border:0;background:var(--gl);color:var(--ink);width:44px;height:44px}
+.avatar{width:44px;height:44px;border-radius:50%;border:0;background:var(--gl);color:var(--mut);display:grid;place-items:center;cursor:pointer;padding:0;font:700 19px Inter,sans-serif}
+.avatar svg{width:25px;height:25px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round}
+.avatar.on{background:var(--g);color:var(--btn-ink)}
+.field,.dd{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:14px;background:var(--card);padding:0 14px;box-shadow:0 1px 4px rgba(0,0,0,.05);max-width:100%}
+.field{height:56px;font-size:17px;flex:1;min-width:0}
+.dd{height:52px;gap:6px;font-size:17px}
+.field svg,.dd svg,.fbtn svg,.sortw svg{width:20px;height:20px;flex:none;stroke:var(--mut);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.field select,.field input,.dd select{border:0;border-radius:0;background:transparent;margin:0;padding:0;height:100%;font-size:17px;flex:1;min-width:0;appearance:none;-webkit-appearance:none;color:var(--ink);text-overflow:ellipsis}
+.dd select{flex:none;max-width:64vw}
+.field select.ph,.dd select.ph{color:var(--mut)}
+.srow{display:flex;gap:10px;margin:10px 0}
+.fbtn{height:56px;border:1px solid var(--line);border-radius:14px;background:var(--card);padding:0 18px;font-size:17px;display:flex;gap:8px;align-items:center;color:var(--ink);cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.frow{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px}
+.cnt{display:flex;justify-content:space-between;align-items:center;margin:14px 0;font-size:18px;color:var(--mut)}.cnt b{color:var(--ink);margin-left:8px}
+.sortw{position:relative;display:flex;align-items:center;gap:6px;color:var(--ink);font-weight:500}
+.sortw select{position:absolute;inset:0;width:100%;height:100%;opacity:0;margin:0}
+.pop{display:flex;align-items:center;gap:14px;width:100%;border:0;border-radius:20px;background:var(--pop);color:#1a0d05;font:600 19px Inter,sans-serif;padding:14px 18px;margin:4px 0 16px;cursor:pointer;text-align:left}
+.pop .dot{width:48px;height:48px;border-radius:50%;background:#14100c;display:grid;place-items:center;flex:none}
+.pop .dot svg{width:24px;height:24px;stroke:#ff9a4d;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:0 1px 6px rgba(0,0,0,.05);cursor:pointer}
+.card .ct{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.card h3{margin:0;font-size:20px;font-weight:600;letter-spacing:-.01em}
+.card .pr{color:var(--g);font-weight:700;font-size:22px;margin:6px 0 8px}.card .pr small{font-size:14px;font-weight:500;color:var(--mut)}
+.card .co{color:var(--mut);font-size:16px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.chip{background:var(--gl);border-radius:10px;padding:8px 12px;font-size:15px;color:var(--ink)}
+.rt{color:var(--star);font-weight:700;white-space:nowrap}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;background:var(--card);border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px))}
+.tab{flex:1;background:none;border:0;display:grid;place-items:center;gap:2px;font:500 13px Inter,sans-serif;color:var(--mut);cursor:pointer;padding:4px}
+.tab svg{width:26px;height:26px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab.on{color:var(--g);font-weight:700}
+.bigav{width:84px;height:84px;border-radius:50%;background:var(--g);color:var(--btn-ink);display:grid;place-items:center;font:700 36px Inter,sans-serif;margin:8px 0}
+.logo{display:block}
+
+*{-webkit-tap-highlight-color:transparent}
+body{font-size:15px}
+.fbtn:focus,.fbtn:focus-visible,.field input:focus,.field input:focus-visible,.field select:focus,.field select:focus-visible,.dd select:focus,.dd select:focus-visible,.sortw select:focus,.tab:focus-visible,.avatar:focus-visible,.icb:focus-visible,.pop:focus-visible,.card:focus,.card:focus-visible,.logo:focus-visible{outline:none}
+.field:focus-within,.dd:focus-within{border-color:var(--g)}
+.logo{font-size:23px}
+header{padding:8px 16px}
+.avatar,.icb{width:38px;height:38px;font-size:16px}
+.avatar svg{width:22px;height:22px}
+.field{height:46px;font-size:15px;border-radius:12px;padding:0 12px;gap:8px}
+.field select,.field input,.dd select{font-size:15px}
+.field svg,.dd svg,.fbtn svg,.sortw svg{width:18px;height:18px}
+.srow{gap:8px;margin:8px 0}
+.fbtn{height:46px;font-size:15px;border-radius:12px;padding:0 14px}
+.frow{gap:8px;margin-bottom:8px}
+.dd{height:40px;font-size:15px;border-radius:12px;padding:0 10px 0 12px}
+.cnt{font-size:15px;margin:10px 0}
+.sortw{font-size:15px}
+.pop{font-size:16px;padding:10px 14px;border-radius:16px;margin:2px 0 12px;gap:12px}
+.pop .dot{width:38px;height:38px}.pop .dot svg{width:20px;height:20px}
+.list.wide{gap:8px}
+.card{padding:14px 14px 12px;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.card h3{font-size:17px;font-weight:600}
+.card .pr{font-size:17px;margin:4px 0 6px}.card .pr small{font-size:12px}
+.card .co{font-size:14px}
+.chips{gap:6px;margin-top:8px}
+.chip{padding:5px 10px;font-size:13px;border-radius:8px}
+.rt{font-size:14px}
+.tabs{padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px))}
+.tab{font-size:12px}.tab svg{width:24px;height:24px}
+h1{font-size:clamp(22px,5.5vw,30px)}
+.dt{color:var(--mut);font-size:13px;margin-top:8px}
+.pw{display:flex;align-items:center;border:1px solid var(--line);border-radius:12px;background:var(--card);margin-top:4px}
+.pw:focus-within{border-color:var(--g)}
+.pw input{border:0;margin:0;background:transparent;flex:1;min-width:0;outline:none}
+.eye{background:none;border:0;padding:0 12px;height:44px;cursor:pointer;color:var(--mut);display:grid;place-items:center}
+.eye svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.eye:focus-visible{outline:none}
+.facts.two{grid-template-columns:1fr 1fr}
+.avatar img,.bigav img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
+
+/* Ombor.uz v2 */
+.v2-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.v2-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.v2-verified{display:inline-flex;align-items:center;gap:5px;background:#e8f7ee;color:#18794e;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:700}
+.v2-verified:before{content:"✓";display:grid;place-items:center;width:16px;height:16px;border-radius:50%;background:#18794e;color:#fff}
+.v2-status{display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border-radius:999px;background:var(--gl);font-size:12px;font-weight:700}
+.v2-status.busy{background:#fff0ed;color:#b42318}.v2-status.free{background:#e8f7ee;color:#18794e}
+.v2-iconbtn{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:9px 11px;cursor:pointer}
+.v2-iconbtn.on{background:#fff0e8;border-color:var(--g)}
+.v2-cond{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.v2-cond span{padding:7px 9px;border-radius:10px;background:var(--gl);font-size:13px}
+.v2-calc{background:var(--gl);border-radius:16px;padding:14px;margin-top:14px}
+.v2-calc .result{font-size:24px;font-weight:800;margin-top:8px}
+.v2-owner{display:grid;gap:12px}
+.v2-request{border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--card)}
+.v2-request .meta{font-size:13px;color:var(--mut)}
+.v2-lang{display:flex;gap:6px}
+.v2-lang button{border:1px solid var(--line);background:var(--card);border-radius:9px;padding:6px 9px;cursor:pointer}
+.v2-lang button.on{background:var(--g);color:var(--btn-ink);border-color:var(--g)}
+.v2-stat{padding:12px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.v2-stat b{display:block;font-size:22px}
+.v2-note{padding:12px;border-radius:12px;background:var(--gl);color:var(--mut);font-size:13px}
+@media(max-width:600px){.v2-actions .btn,.v2-actions .v2-iconbtn{flex:1}.v2-grid{grid-template-columns:1fr 1fr}}
+
+.v2-heart{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;cursor:pointer;padding:0;color:var(--mut);flex:none}
+.v2-heart svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
+.v2-heart.on{color:var(--g);border-color:var(--g)}.v2-heart.on svg{fill:currentColor}
+.v2-heart:focus-visible{outline:none}
+.titlebar .ic{align-items:center}
+
+.v2-contact-row{display:flex;align-items:center;gap:8px;margin-top:10px}
+.v2-icon-action{height:42px;border:1px solid var(--line);border-radius:12px;background:var(--gl);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:0 12px;text-decoration:none;font:600 14px Inter,sans-serif;cursor:pointer}
+.v2-icon-action svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.v2-icon-action.call{color:#18794e}.v2-icon-action.tg{color:#1686d9}
+.v2-icon-action:hover{border-color:var(--g);background:var(--card)}
+.req-compact{height:42px;padding:0 14px;margin-left:auto;white-space:nowrap}
+.v2-location{display:grid;gap:10px}
+.v2-address{display:flex;gap:9px;align-items:flex-start;color:var(--ink)}
+.v2-address svg{width:20px;height:20px;flex:none;fill:none;stroke:var(--g);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin-top:1px}
+.map-link{display:flex;align-items:center;gap:8px;text-decoration:none;border:1px solid var(--line);background:var(--gl);color:var(--ink);border-radius:11px;padding:9px 11px;font-weight:600;font-size:14px}
+.map-link svg{width:19px;height:19px;fill:none;stroke:var(--g);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.map-link .arrow{margin-left:auto;color:var(--g);font-size:17px}
+.v2-calc select{margin-top:4px}
+
+.v2-main-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:14px}.v2-main-actions .btn{margin:0}.v2-contact-row{display:flex;gap:8px;margin-top:8px;align-items:center}.v2-icon-action{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:36px;padding:7px 11px;border:1px solid var(--line);border-radius:10px;background:var(--card);text-decoration:none;cursor:pointer;font:inherit;font-size:13px}.v2-icon-action svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8}.v2-icon-action.call{color:#16804b}.v2-icon-action.tg{color:#168dcc}.v2-calc input.invalid{border-color:#e53935!important;color:#e53935!important;background:#fff1f1!important;outline-color:#e53935}.calc-range{display:block;margin-top:5px;color:var(--mut);font-size:12px;font-weight:400}
+</style>
+</head>
+<body>
+<header>
+  <button class="logo" id="home">ombor<span>.uz</span></button>
+  <div class="v2-lang" aria-label="Til"><button type="button" data-lang="uz" class="on">UZ</button><button type="button" data-lang="ru">RU</button><button type="button" data-lang="en">EN</button></div><div class="hr">
+    <button class="icb hide" id="msgBtn" type="button" aria-label="Xabarlar"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg><span class="badge hide" id="badge"></span></button>
+    <button class="avatar" id="avBtn" type="button" aria-label="Profil"></button>
+  </div>
+</header>
+<main>
+
+<section id="vFind">
+  <div class="field"><svg viewBox="0 0 24 24"><path d="M12 22s7-7.500 7-13a7 7 0 0 0-14 0c0 5.500 7 13 7 13z"/><circle cx="12" cy="9" r="2.500"/></svg><select id="loc" aria-label="Hududni tanlang"></select><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+  <div class="srow">
+    <div class="field"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="q" type="search" placeholder="Omborlarni qidirish" autocomplete="off" aria-label="Omborlarni qidirish"></div>
+    <button class="fbtn" id="fBtn" type="button" aria-expanded="false" aria-controls="fRow"><svg id="icF" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></svg><svg id="icX" class="hide" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg><span>Filtr</span></button>
+  </div>
+  <div class="frow hide" id="fRow">
+    <div class="dd"><select id="fType" aria-label="Mahsulot turi"></select><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+    <div class="dd"><select id="fPrice" aria-label="Narx"><option value="">Narx</option><option value="40000">40 000 gacha</option><option value="60000">60 000 gacha</option><option value="80000">80 000 gacha</option><option value="100000">100 000 gacha</option></select><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+    <div class="dd"><select id="fArea" aria-label="Kerakli maydon"><option value="">Maydon</option><option value="50">50 m²</option><option value="100">100 m²</option><option value="200">200 m²</option><option value="500">500 m²</option><option value="1000">1000 m²</option></select><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+    <div class="dd"><select id="fDist" aria-label="Tuman"></select><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+    <button class="btn hide" id="fClr" type="button">Tozalash</button>
+  </div>
+  <div class="cnt"><span>Omborlar <b id="n">0</b></span><div class="sortw"><span id="sortL">Saralash</span><svg viewBox="0 0 24 24"><path d="M8 4v16M4 16l4 4 4-4M16 20V4M12 8l4-4 4 4"/></svg><select id="sort" aria-label="Saralash"><option value="new">Yangilari</option><option value="cheap">Avval arzon</option><option value="exp">Avval qimmat</option><option value="rate">Reyting bo'yicha</option></select></div></div>
+    <button class="pop" id="postBtn" type="button"><span class="dot"><svg viewBox="0 0 24 24"><path d="M3 21V9l9-5 9 5v12"/><path d="M8 21v-7h8v7M12 8v2"/></svg></span>Ombor joylash</button>
+  <div class="list wide" id="list"></div>
+</section>
+
+<section id="vCo" class="hide">
+  <h1>Kompaniyalar</h1>
+  <div class="list wide" id="coList"></div>
+  <h2>Statistika</h2>
+  <div class="stats" id="stats"></div>
+</section>
+
+<section id="vDet" class="hide"></section>
+
+<section id="vAuth" class="hide">
+  <form class="box narrow" id="loginForm">
+    <h1 style="font-size:28px;margin:0">Kirish</h1>
+    <p class="sub" style="margin:0" id="aNote">Hisobingizga kiring.</p>
+    <label>Telefon raqam<input id="lPhone" type="tel" required placeholder="+998 90 111 22 33" autocomplete="username"></label>
+    <label>Parol<span class="pw"><input id="lPass" type="password" required autocomplete="current-password"><button class="eye" type="button" data-eye="lPass" aria-label="Parolni ko'rsatish"><svg viewBox="0 0 24 24"><path d="M2 12s3.600-7 10-7 10 7 10 7-3.600 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></span></label>
+    <p class="err" id="lErr" role="alert"></p>
+    <button class="btn p" type="submit">Kirish</button>
+    <small class="sub" style="margin:0">Sinash uchun: 90 111 22 33 / demo1234</small>
+    <hr style="border:0;border-top:1px solid var(--line);width:100%">
+    <span class="sub" style="margin:0">Hali ro'yxatdan o'tmaganmisiz?</span>
+    <button class="btn" type="button" id="toReg">Ro'yxatdan o'tish</button>
+  </form>
+</section>
+
+<section id="vReg" class="hide">
+  <form class="box narrow" id="regForm">
+    <h1 style="font-size:28px;margin:0">Ro'yxatdan o'tish</h1>
+    <label>Ismingiz<input id="gName" required autocomplete="name"></label>
+    <label>Siz kimsiz?<select id="gRole"><option value="Ombor qidiruvchi">Ombor qidiruvchi</option><option value="Ombor egasi">Ombor egasi</option></select></label>
+    <label>Telefon raqam<input id="gPhone" type="tel" required placeholder="+998 90 123 45 67" autocomplete="username"></label>
+    <label>Parol (kamida 6 belgi)<span class="pw"><input id="gPass" type="password" required minlength="6" autocomplete="new-password"><button class="eye" type="button" data-eye="gPass" aria-label="Parolni ko'rsatish"><svg viewBox="0 0 24 24"><path d="M2 12s3.600-7 10-7 10 7 10 7-3.600 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></span></label>
+    <label>Parolni takrorlang<span class="pw"><input id="gPass2" type="password" required autocomplete="new-password"><button class="eye" type="button" data-eye="gPass2" aria-label="Parolni ko'rsatish"><svg viewBox="0 0 24 24"><path d="M2 12s3.600-7 10-7 10 7 10 7-3.600 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></span></label>
+    <p class="err" id="gErr" role="alert"></p>
+    <button class="btn p" type="submit">Ro'yxatdan o'tish</button>
+    <button class="btn" type="button" id="toLogin">Hisobim bor, kirish</button>
+  </form>
+</section>
+
+<section id="vCoP" class="hide">
+  <button class="btn" id="coBack" type="button">← Kompaniyalar</button>
+  <div id="coHead" style="margin-top:12px"></div>
+  <div class="list wide" id="coWh"></div>
+</section>
+
+<section id="vProf" class="hide">
+  <div id="pGuest"><h1>Profil</h1><p class="sub">Hisob ochsangiz, ombor joylash va ega bilan yozishish mumkin.</p>
+    <div class="col"><button class="btn p" id="pLogin" type="button">Kirish</button><button class="btn" id="pReg" type="button">Ro'yxatdan o'tish</button></div></div>
+  <div id="pUser" class="hide"><div class="bigav" id="pAv"></div><h1 id="pName"></h1><p class="sub" id="pPhone"></p>
+    <div class="col"><button class="btn" id="pMsg" type="button">Xabarlar</button><button class="btn" id="pAdd" type="button">Ombor joylash</button><button class="btn" id="pNeed" type="button">Menga ombor kerak</button><button class="btn" id="pOwner" type="button">Ega kabineti</button><button class="btn" id="pEditBtn" type="button">Profilni sozlash</button><button class="btn" id="pOut" type="button">Chiqish</button></div>
+    <form class="box narrow hide" id="pEdit" style="margin:14px 0 0">
+      <div style="display:flex;align-items:center;gap:12px"><div class="bigav" id="eAv" style="margin:0;flex:none"></div>
+        <div style="display:grid;gap:8px"><label class="drop" style="padding:8px 14px">Rasm tanlash<input id="ePhoto" type="file" accept="image/*"></label><button class="btn" id="eDel" type="button">Rasmni o'chirish</button></div></div>
+      <label>Ism<input id="eName" required autocomplete="name"></label>
+      <label id="eRoleL">Siz kimsiz?<select id="eRole"><option value="Ombor qidiruvchi">Ombor qidiruvchi</option><option value="Ombor egasi">Ombor egasi</option></select></label>
+      <label>Telefon raqam<input id="ePhone" type="tel" required></label>
+      <p class="err" id="eErr" role="alert"></p>
+      <div style="display:flex;gap:8px"><button class="btn p" type="submit">Saqlash</button><button class="btn" id="eCancel" type="button">Bekor qilish</button></div>
+    </form></div>
+  <h2>Sevimlilar</h2>
+  <div class="list wide" id="favList"></div>
+  <h2>Parametrlar</h2>
+  <div class="panel" style="max-width:360px"><label class="sw" for="darkSw"><span>Tungi rejim</span><input type="checkbox" id="darkSw" role="switch"></label></div>
+</section>
+
+<section id="vMsg" class="hide">
+  <div class="bar"><button class="btn" id="mBack" type="button">← Orqaga</button></div>
+  <h1>Xabarlar</h1>
+  <div id="tList" class="list" style="max-height:none"></div>
+  <div id="tChat" class="hide">
+    <div class="panel"><b id="cTitle"></b><div class="sub" id="cSub" style="margin:0"></div></div>
+    <div id="cBody" class="chat" role="log" aria-live="polite"></div>
+    <form id="cForm" class="cform"><input id="cIn" placeholder="Xabar yozing: qancha m² kerak, qancha muddatga?" autocomplete="off" required><button class="btn p" type="submit">Yuborish</button></form>
+  </div>
+</section>
+
+<section id="vAdd" class="hide">
+  <div class="bar"><span class="sub" style="margin:0" id="hi"></span><button class="btn" id="out" type="button">Chiqish</button></div>
+  <h1>Ombor joylash</h1>
+  <p class="sub">Ma'lumot va rasmlarni kiriting, ombor qidiruvchilar ro'yxatida darhol chiqadi.</p>
+  <form class="box" id="addForm">
+    <label class="full">Ombor nomi<input name="name" required placeholder="masalan, Sergeli ombor kompleksi"></label>
+    <label class="full">Kompaniya nomi<input name="co" id="aCo" required placeholder="masalan, Logistik Markaz MCHJ"></label>
+    <label>Viloyat<select name="vil" id="aVil" required></select></label>
+    <label>Tuman yoki shahar<select name="dist" id="aDist" required></select></label>
+    <label class="full">Aniq manzil<input name="adr" required placeholder="masalan, Sanoat ko'chasi, 14-uy"></label>
+    <label>Umumiy maydon (m²)<input name="area" type="number" min="1" required></label>
+    <label>Ijaraga beriladigan maydon (m²)<input name="free" type="number" min="1" required></label>
+    <label>Eng kam ijara (m²)<input name="minR" type="number" min="1" required></label>
+    <label>Narx (so'm/m², oyiga)<input name="price" type="number" min="1000" required></label>
+    <label>Telefon<input name="phone" id="aPhone" type="tel" required></label>
+    <fieldset class="types full" id="aTypes"></fieldset>
+    <div class="full">
+      <label class="drop" for="photos"><b>Rasm yuklash</b><br><small>Bosing va 5 tagacha rasm tanlang</small><input id="photos" type="file" accept="image/*" multiple></label>
+      <div class="thumbs" id="prev"></div>
+    </div>
+    <label class="chk full"><input type="checkbox" name="guard"> Qo‘riqlanadi (24/7)</label>
+    <fieldset class="types full">
+      <legend>Ombor sharoitlari</legend>
+      <label class="chk"><input type="checkbox" name="cold"> Sovutgich</label>
+      <label class="chk"><input type="checkbox" name="lift"> Yuk ko‘taruvchi texnika</label>
+      <label class="chk"><input type="checkbox" name="ramp"> Pandus</label>
+      <label class="chk"><input type="checkbox" name="camera"> Video kuzatuv</label>
+      <label class="chk"><input type="checkbox" name="fire"> Yong‘inga qarshi tizim</label>
+      <label class="chk"><input type="checkbox" name="hazard"> Xavfli moddalar litsenziyasi</label>
+    </fieldset>
+    <label class="full">Hujjatlar (tekshiruv uchun)<input id="docs" type="file" accept=".pdf,image/*" multiple></label>
+    <p class="err full" id="aErr" role="alert"></p>
+    <button class="btn p full" type="submit">Omborni qo'shish</button>
+  </form>
+</section>
+
+<section id="vOwner" class="hide">
+  <div class="bar">
+    <button class="btn" id="ownerBack" type="button">← Orqaga</button>
+    <span class="v2-verified hide" id="ownerVerified">Tasdiqlangan ega</span>
+  </div>
+  <h1>Ega kabineti</h1>
+  <p class="sub">Kelgan so‘rovlarni boshqaring, omborni band qiling va narxni yangilang.</p>
+  <div id="ownerList" class="v2-owner"></div>
+</section>
+
+<section id="vNeed" class="hide">
+  <div class="bar"><button class="btn" id="needBack" type="button">← Orqaga</button></div>
+  <h1>Menga ombor kerak</h1>
+  <p class="sub">Talabingizni qoldiring — mos ombor egalari sizga taklif yuborishi mumkin.</p>
+  <form class="box narrow" id="needForm">
+    <label>Mahsulot turi<select id="needType" required></select></label>
+    <label>Kerakli maydon (m²)<input id="needArea" type="number" min="1" required placeholder="200"></label>
+    <label>Muddat (oy)<input id="needMonths" type="number" min="1" required placeholder="3"></label>
+    <label>Hudud<select id="needVil" required></select></label>
+    <label>Qo‘shimcha talab<textarea id="needNote" rows="4" placeholder="Sovutgich, yuk ko‘taruvchi texnika va hokazo"></textarea></label>
+    <button class="btn p" type="submit">E’lonni joylash</button>
+  </form>
+  <div id="needList"></div>
+</section>
+
+</main>
+<nav class="tabs" id="nav" aria-label="Asosiy bo'limlar">
+  <button class="tab on" data-tab="vFind" type="button"><svg viewBox="0 0 24 24"><path d="M3 21V9l9-5 9 5v12"/><path d="M8 21v-7h8v7"/></svg><span>Omborlar</span></button>
+  <button class="tab" data-tab="vCo" type="button"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M10 21v-4h4v4"/></svg><span>Kompaniyalar</span></button>
+  <button class="tab" data-tab="vProf" type="button"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.200 3.600-7 8-7s8 2.800 8 7"/></svg><span>Profil</span></button>
+</nav>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+var $=function(i){return document.getElementById(i)};
+var TYPES=["Oziq-ovqat va qishloq xo'jaligi","Qurilish materiallari","Dori-darmon va tibbiyot vositalari","Kiyim-kechak va to'qimachilik","Kimyoviy va xavfli moddalar","Elektronika va maishiy texnika"];
+var VILS=["Toshkent shahri","Toshkent viloyati","Andijon viloyati","Buxoro viloyati","Farg'ona viloyati","Jizzax viloyati","Namangan viloyati","Navoiy viloyati","Qashqadaryo viloyati","Qoraqalpog'iston Respublikasi","Samarqand viloyati","Sirdaryo viloyati","Surxondaryo viloyati","Xorazm viloyati"];
+var VPOS={"Qoraqalpog'iston Respublikasi":[22,28],"Xorazm viloyati":[22,47],"Navoiy viloyati":[44,40],"Buxoro viloyati":[40,60],"Samarqand viloyati":[60,57],"Jizzax viloyati":[66,45],"Sirdaryo viloyati":[72,41],"Toshkent viloyati":[76,30],"Toshkent shahri":[85,37],"Namangan viloyati":[91,45],"Andijon viloyati":[95,50],"Farg'ona viloyati":[86,54],"Qashqadaryo viloyati":[54,76],"Surxondaryo viloyati":[62,88]};
+var short=function(v){return v.replace(" viloyati","").replace(" Respublikasi","")};
+var TUM={"Toshkent shahri":["Bektemir","Chilonzor","Mirobod","Mirzo Ulug'bek","Olmazor","Sergeli","Shayxontohur","Uchtepa","Yakkasaroy","Yangihayot","Yashnobod","Yunusobod"],
+"Toshkent viloyati":["Angren","Bekobod","Bo'ka","Bo'stonliq","Chinoz","Chirchiq","Nurafshon","Ohangaron","Olmaliq","Oqqo'rg'on","O'rtachirchiq","Parkent","Piskent","Qibray","Quyichirchiq","Toshkent tumani","Yangiyo'l","Yuqorichirchiq","Zangiota"],
+"Andijon viloyati":["Andijon shahri","Asaka","Baliqchi","Bo'z","Buloqboshi","Izboskan","Jalaquduq","Marhamat","Oltinko'l","Paxtaobod","Qo'rg'ontepa","Shahrixon","Ulug'nor","Xo'jaobod","Xonabod"],
+"Buxoro viloyati":["Buxoro shahri","G'ijduvon","Jondor","Kogon","Olot","Peshku","Qorako'l","Qorovulbozor","Romitan","Shofirkon","Vobkent"],
+"Farg'ona viloyati":["Farg'ona shahri","Beshariq","Bog'dod","Buvayda","Dang'ara","Furqat","Marg'ilon","Oltiariq","Qo'qon","Qo'shtepa","Quva","Quvasoy","Rishton","So'x","Toshloq","Uchko'prik","Yozyovon","O'zbekiston"],
+"Jizzax viloyati":["Jizzax shahri","Arnasoy","Baxmal","Do'stlik","Forish","G'allaorol","Mirzacho'l","Paxtakor","Sharof Rashidov","Yangiobod","Zafarobod","Zarbdor","Zomin"],
+"Namangan viloyati":["Namangan shahri","Chortoq","Chust","Kosonsoy","Mingbuloq","Namangan tumani","Norin","Pop","To'raqo'rg'on","Uchqo'rg'on","Uychi","Yangiqo'rg'on"],
+"Navoiy viloyati":["Navoiy shahri","Zarafshon","Karmana","Konimex","Navbahor","Nurota","Qiziltepa","Tomdi","Uchquduq","Xatirchi"],
+"Qashqadaryo viloyati":["Qarshi shahri","Shahrisabz","Chiroqchi","Dehqonobod","G'uzor","Kasbi","Kitob","Koson","Mirishkor","Muborak","Nishon","Qamashi","Qarshi tumani","Yakkabog'"],
+"Qoraqalpog'iston Respublikasi":["Nukus shahri","Amudaryo","Beruniy","Bo'zatov","Chimboy","Ellikqal'a","Kegeyli","Mo'ynoq","Nukus tumani","Qanliko'l","Qorao'zak","Qo'ng'irot","Shumanay","Taxiatosh","Taxtako'pir","To'rtko'l","Xo'jayli"],
+"Samarqand viloyati":["Samarqand shahri","Kattaqo'rg'on","Bulung'ur","Ishtixon","Jomboy","Narpay","Nurobod","Oqdaryo","Pastdarg'om","Paxtachi","Payariq","Qo'shrabot","Samarqand tumani","Toyloq","Urgut"],
+"Sirdaryo viloyati":["Guliston shahri","Yangiyer","Shirin","Boyovut","Guliston tumani","Mirzaobod","Oqoltin","Sardoba","Sayxunobod","Sirdaryo tumani","Xovos"],
+"Surxondaryo viloyati":["Termiz shahri","Angor","Bandixon","Boysun","Denov","Jarqo'rg'on","Muzrabot","Oltinsoy","Qiziriq","Qumqo'rg'on","Sariosiyo","Sherobod","Sho'rchi","Termiz tumani","Uzun"],
+"Xorazm viloyati":["Urganch shahri","Xiva shahri","Bog'ot","Gurlan","Qo'shko'pir","Shovot","Tuproqqal'a","Urganch tumani","Xazorasp","Xiva tumani","Xonqa","Yangiariq","Yangibozor"]};
+function fillDist(){fill("aDist",TUM[$("aVil").value]||[])}
+function phSvg(n){var c=["#fde0cc","#fbd3b8","#fee8d8","#fcdcc4"][n%4];
+ return "data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 90"><rect width="160" height="90" fill="'+c+'"/><rect y="68" width="160" height="22" fill="#f3b48a"/><path d="M30 70V38l50-20 50 20v32z" fill="#d9480f"/><rect x="62" y="44" width="36" height="26" fill="#fff1e8"/><path d="M62 52h36M62 60h36" stroke="#d9480f" stroke-width="2"/><rect x="108" y="56" width="14" height="14" fill="#d9a35b"/></svg>')}
+var PX=["4483862","4483608","4483609","4483860"].map(function(i){return "https://images.pexels.com/photos/"+i+"/pexels-photo-"+i+".jpeg?auto=compress&cs=tinysrgb&w=900"});
+function ph(n){return PX[n%4]}
+document.addEventListener("error",function(e){var t=e.target;if(t&&t.tagName==="IMG"&&!t.dataset.fb){t.dataset.fb="1";t.src=phSvg(0)}},true);
+function today(){var t=new Date();return("0"+t.getDate()).slice(-2)+"."+("0"+(t.getMonth()+1)).slice(-2)+"."+t.getFullYear()}
+var COY={"Logistik Markaz MCHJ":2014,"Oziq-Zaxira Servis":2016,"Yunusobod Savdo Group":2012,"ElektroLine":2018,"Farm-Ombor Plus":2019,"Chirchiq Logistika":2015,"Samarqand Agro":2013,"Marg'ilon Tekstil":2011,"Mirobod Trade":2017,"Chorsu Oziq-Ovqat":2010,"Uchtepa Stroy":2015,"Tekstil Hub":2020,"Zangiota Agro Frigo":2021,"Urgut Meva Savdo":2019,"Qo'qon Logistik":2016,"Andijon Logistik":2018,"Asaka Servis":2020,"Buxoro Tekstil":2012,"Kogon Terminal":2017,"Jizzax Don Mahsulotlari":2014,"Do'stlik Stroy":2019,"Namangan Tekstil":2013,"Chust Savdo":2021,"Navoiy Aero Logistika":2016,"Zarafshon Industrial":2015,"Qarshi Agro Servis":2018,"Shahrisabz Frigo":2020,"Nukus Logistik":2017,"Amudaryo Agro":2014,"Guliston Stroy":2019,"Yangiyer Industrial":2016,"Termiz Terminal":2018,"Denov Agro":2021,"Xorazm Logistika":2013,"Xiva Savdo":2022};
+var COC={"Logistik Markaz MCHJ":1840,"Oziq-Zaxira Servis":920,"Yunusobod Savdo Group":2300,"ElektroLine":640,"Farm-Ombor Plus":1100,"Chirchiq Logistika":780,"Samarqand Agro":1350,"Marg'ilon Tekstil":560,"Mirobod Trade":870,"Chorsu Oziq-Ovqat":2650,"Uchtepa Stroy":720,"Tekstil Hub":430,"Zangiota Agro Frigo":310,"Urgut Meva Savdo":260,"Qo'qon Logistik":690,"Andijon Logistik":820,"Asaka Servis":380,"Buxoro Tekstil":940,"Kogon Terminal":1500,"Jizzax Don Mahsulotlari":710,"Do'stlik Stroy":340,"Namangan Tekstil":880,"Chust Savdo":220,"Navoiy Aero Logistika":1260,"Zarafshon Industrial":590,"Qarshi Agro Servis":670,"Shahrisabz Frigo":280,"Nukus Logistik":610,"Amudaryo Agro":450,"Guliston Stroy":530,"Yangiyer Industrial":410,"Termiz Terminal":980,"Denov Agro":300,"Xorazm Logistika":760,"Xiva Savdo":190};
+function coClients(n){return COC[n]||0}
+function coYear(n){return COY[n]||new Date().getFullYear()}
+function dnum(d){var a=d.split(".");return +a[2]*10000+ +a[1]*100+ +a[0]}
+var W=[
+{id:1,d:"06.09.2026",adr:"Mustaqillik ko'chasi, 8-uy",co:"Logistik Markaz MCHJ",name:"Sergeli Logistik Markaz",vil:"Toshkent shahri",dist:"Sergeli",area:1000,free:400,minR:50,price:55000,types:[TYPES[1],TYPES[4]],guard:1,phone:"+998 90 111 22 33",ph:[ph(0),ph(1)],rv:[{n:"Jasur",r:5,t:"Yuk mashinalari kirishi qulay, ega tez javob beradi."},{n:"Dilnoza",r:4,t:"Narxi yaxshi, faqat kechqurun qorong'i."}]},
+{id:2,d:"11.07.2026",adr:"Yangi hayot ko'chasi, 15-uy",co:"Oziq-Zaxira Servis",name:"Chilonzor Oziq-ovqat Zaxirasi",vil:"Toshkent shahri",dist:"Chilonzor",area:400,free:150,minR:20,price:95000,types:[TYPES[0]],guard:1,phone:"+998 91 222 33 44",ph:[ph(1),ph(2)],rv:[{n:"Akmal",r:5,t:"Sovutgich barqaror ishlaydi, mahsulotim buzilmadi."}]},
+{id:3,d:"16.10.2026",adr:"Zavod ko'chasi, 22-uy",co:"Yunusobod Savdo Group",name:"Yunusobod Savdo Ombori",vil:"Toshkent shahri",dist:"Yunusobod",area:300,free:300,minR:30,price:80000,types:[TYPES[3],TYPES[5]],guard:1,phone:"+998 93 333 44 55",ph:[ph(2)],rv:[{n:"Zarina",r:4,t:"Yuk tushirish oson, qo'riqchi bor."}]},
+{id:4,d:"21.08.2026",adr:"Navoiy ko'chasi, 29-uy",co:"Logistik Markaz MCHJ",name:"Bektemir Sanoat Hovlisi",vil:"Toshkent shahri",dist:"Bektemir",area:2500,free:1000,minR:100,price:42000,types:[TYPES[1],TYPES[4]],guard:0,phone:"+998 94 444 55 66",ph:[ph(3),ph(0)],rv:[{n:"Bobur",r:3,t:"Katta, lekin qo'riqlash yo'q."}]},
+{id:5,d:"02.06.2026",adr:"Bunyodkor ko'chasi, 36-uy",co:"ElektroLine",name:"Olmazor Elektronika Ombori",vil:"Toshkent shahri",dist:"Olmazor",area:250,free:120,minR:20,price:90000,types:[TYPES[5]],guard:1,phone:"+998 97 555 66 77",ph:[ph(0)],rv:[{n:"Malika",r:5,t:"Mahsulotim butun saqlandi, rahmat."},{n:"Dilnoza",r:5,t:"Joylashuvi qulay, ega halol va tez javob beradi."},{n:"Madina",r:4,t:"Yuk tushirish oson, qo'riqchi bor."}]},
+{id:6,d:"07.09.2026",adr:"Temiryo'l ko'chasi, 43-uy",co:"Farm-Ombor Plus",name:"Mirzo Ulug'bek Farm-ombor",vil:"Toshkent shahri",dist:"Mirzo Ulug'bek",area:350,free:200,minR:25,price:110000,types:[TYPES[2]],guard:1,phone:"+998 88 666 77 88",ph:[ph(1)],rv:[{n:"Malika",r:5,t:"Toza, tartibli, hujjatlari to'liq."},{n:"Sardor",r:4,t:"Biroz qimmat, lekin ishonchli."}]},
+{id:7,d:"12.07.2026",adr:"Amir Temur ko'chasi, 50-uy",co:"Chirchiq Logistika",name:"Chirchiq Logistika Hovlisi",vil:"Toshkent viloyati",dist:"Chirchiq",area:3000,free:1200,minR:100,price:38000,types:[TYPES[1],TYPES[5]],guard:1,phone:"+998 90 700 80 90",ph:[ph(2),ph(3)],rv:[{n:"Dilnoza",r:5,t:"Narxiga nisbatan juda yaxshi ombor."},{n:"Madina",r:5,t:"Hammasi kelishilgandek bo'ldi, tavsiya qilaman."}]},
+{id:8,d:"17.10.2026",adr:"Do'stlik ko'chasi, 57-uy",co:"Samarqand Agro",name:"Samarqand Agro Ombor",vil:"Samarqand viloyati",dist:"Samarqand shahri",area:1800,free:700,minR:100,price:35000,types:[TYPES[0]],guard:1,phone:"+998 91 810 20 30",ph:[ph(1)],rv:[{n:"Farhod",r:4,t:"Meva-sabzavot uchun qulay, shamollatish yaxshi."}]},
+{id:9,d:"22.08.2026",adr:"Ipak yo'li ko'chasi, 4-uy",co:"Marg'ilon Tekstil",name:"Marg'ilon To'qimachilik Ombori",vil:"Farg'ona viloyati",dist:"Marg'ilon",area:900,free:500,minR:40,price:40000,types:[TYPES[3]],guard:0,phone:"+998 93 905 06 07",ph:[ph(0)],rv:[{n:"Madina",r:4,t:"Toza va quruq, narxi o'rtacha."}]},
+{id:10,d:"03.06.2026",adr:"Sanoat ko'chasi, 11-uy",co:"Mirobod Trade",name:"Mirobod Savdo Kompleksi",vil:"Toshkent shahri",dist:"Mirobod",area:600,free:250,minR:25,price:85000,types:[TYPES[3],TYPES[5]],guard:1,phone:"+998 90 100 10 10",ph:[ph(0)],rv:[{n:"Otabek",r:5,t:"Joylashuvi qulay, ega halol va tez javob beradi."}]},
+{id:11,d:"08.09.2026",adr:"Mustaqillik ko'chasi, 18-uy",co:"Chorsu Oziq-Ovqat",name:"Shayxontohur Oziq-ovqat Ombori",vil:"Toshkent shahri",dist:"Shayxontohur",area:800,free:350,minR:30,price:70000,types:[TYPES[0]],guard:1,phone:"+998 91 107 13 21",ph:[ph(1),ph(2)],rv:[{n:"Nigora",r:4,t:"Yuk tushirish oson, qo'riqchi bor."},{n:"Zarina",r:4,t:"Ega bilan kelishish oson bo'ldi."},{n:"Malika",r:4,t:"Toza va quruq, narxi o'rtacha."}]},
+{id:12,d:"13.07.2026",adr:"Yangi hayot ko'chasi, 25-uy",co:"Uchtepa Stroy",name:"Uchtepa Qurilish Bazasi",vil:"Toshkent shahri",dist:"Uchtepa",area:1500,free:700,minR:50,price:48000,types:[TYPES[1],TYPES[4]],guard:0,phone:"+998 92 114 16 32",ph:[ph(2)],rv:[{n:"Rustam",r:3,t:"Joyi yaxshi, lekin yo'li biroz yomon."}]},
+{id:13,d:"18.10.2026",adr:"Zavod ko'chasi, 32-uy",co:"Farm-Ombor Plus",name:"Yashnobod Farm Logistika",vil:"Toshkent shahri",dist:"Yashnobod",area:450,free:180,minR:20,price:105000,types:[TYPES[2]],guard:1,phone:"+998 93 121 19 43",ph:[ph(3),ph(0)],rv:[{n:"Zarina",r:5,t:"Hammasi kelishilgandek bo'ldi, tavsiya qilaman."}]},
+{id:14,d:"23.08.2026",adr:"Navoiy ko'chasi, 39-uy",co:"Tekstil Hub",name:"Yangihayot Kiyim Ombori",vil:"Toshkent shahri",dist:"Yangihayot",area:700,free:300,minR:30,price:60000,types:[TYPES[3]],guard:1,phone:"+998 94 128 22 54",ph:[ph(0)],rv:[{n:"Sherzod",r:4,t:"Ega bilan kelishish oson bo'ldi."},{n:"Jasur",r:4,t:"Toza va quruq, narxi o'rtacha."},{n:"Bobur",r:3,t:"Joyi yaxshi, lekin yo'li biroz yomon."}]},
+{id:15,d:"04.06.2026",adr:"Bunyodkor ko'chasi, 46-uy",co:"Zangiota Agro Frigo",name:"Zangiota Sovuq Ombor",vil:"Toshkent viloyati",dist:"Zangiota",area:1200,free:500,minR:40,price:52000,types:[TYPES[0]],guard:1,phone:"+998 95 135 25 65",ph:[ph(1),ph(2)],rv:[{n:"Malika",r:5,t:"Narxiga nisbatan juda yaxshi ombor."}]},
+{id:16,d:"09.09.2026",adr:"Temiryo'l ko'chasi, 53-uy",co:"Urgut Meva Savdo",name:"Urgut Quritilgan Meva Ombori",vil:"Samarqand viloyati",dist:"Urgut",area:600,free:300,minR:30,price:38000,types:[TYPES[0]],guard:0,phone:"+998 96 142 28 76",ph:[ph(2)],rv:[{n:"Nigora",r:4,t:"Toza va quruq, narxi o'rtacha."}]},
+{id:17,d:"14.07.2026",adr:"Amir Temur ko'chasi, 60-uy",co:"Qo'qon Logistik",name:"Qo'qon Savdo Ombori",vil:"Farg'ona viloyati",dist:"Qo'qon",area:1000,free:450,minR:40,price:45000,types:[TYPES[3],TYPES[5]],guard:1,phone:"+998 97 149 31 87",ph:[ph(3),ph(0)],rv:[{n:"Dilnoza",r:4,t:"Toza va quruq, narxi o'rtacha."},{n:"Madina",r:3,t:"Joyi yaxshi, lekin yo'li biroz yomon."},{n:"Nigora",r:5,t:"Narxiga nisbatan juda yaxshi ombor."}]},
+{id:18,d:"19.10.2026",adr:"Do'stlik ko'chasi, 7-uy",co:"Andijon Logistik",name:"Andijon Logistik Hovli",vil:"Andijon viloyati",dist:"Andijon shahri",area:1100,free:500,minR:50,price:43000,types:[TYPES[1],TYPES[5]],guard:1,phone:"+998 98 156 34 98",ph:[ph(0)],rv:[{n:"Bobur",r:5,t:"Hammasi kelishilgandek bo'ldi, tavsiya qilaman."}]},
+{id:19,d:"24.08.2026",adr:"Ipak yo'li ko'chasi, 14-uy",co:"Asaka Servis",name:"Asaka Avto-detal Ombori",vil:"Andijon viloyati",dist:"Asaka",area:500,free:200,minR:20,price:50000,types:[TYPES[5],TYPES[4]],guard:0,phone:"+998 99 163 37 19",ph:[ph(1),ph(2)],rv:[{n:"Sherzod",r:3,t:"Joyi yaxshi, lekin yo'li biroz yomon."}]},
+{id:20,d:"05.06.2026",adr:"Sanoat ko'chasi, 21-uy",co:"Buxoro Tekstil",name:"Buxoro Paxta-to'qimachilik Ombori",vil:"Buxoro viloyati",dist:"Buxoro shahri",area:1400,free:600,minR:50,price:36000,types:[TYPES[3],TYPES[0]],guard:1,phone:"+998 90 170 40 30",ph:[ph(2)],rv:[{n:"Otabek",r:3,t:"Joyi yaxshi, lekin yo'li biroz yomon."},{n:"Rustam",r:5,t:"Narxiga nisbatan juda yaxshi ombor."},{n:"Sherzod",r:5,t:"Hammasi kelishilgandek bo'ldi, tavsiya qilaman."}]},
+{id:21,d:"10.09.2026",adr:"Mustaqillik ko'chasi, 28-uy",co:"Kogon Terminal",name:"Kogon Temiryo'l Ombori",vil:"Buxoro viloyati",dist:"Kogon",area:3000,free:1500,minR:100,price:33000,types:[TYPES[1],TYPES[4],TYPES[0]],guard:1,phone:"+998 91 177 43 41",ph:[ph(3),ph(0)],rv:[{n:"Nigora",r:5,t:"Mahsulotim butun saqlandi, rahmat."}]},
+{id:22,d:"15.07.2026",adr:"Yangi hayot ko'chasi, 35-uy",co:"Jizzax Don Mahsulotlari",name:"Jizzax Don Ombori",vil:"Jizzax viloyati",dist:"Jizzax shahri",area:2000,free:900,minR:100,price:30000,types:[TYPES[0]],guard:1,phone:"+998 92 184 46 52",ph:[ph(0)],rv:[{n:"Rustam",r:4,t:"Yuk tushirish oson, qo'riqchi bor."}]},
+{id:23,d:"20.10.2026",adr:"Zavod ko'chasi, 42-uy",co:"Do'stlik Stroy",name:"Do'stlik Qurilish Mollari Ombori",vil:"Jizzax viloyati",dist:"Do'stlik",area:900,free:400,minR:40,price:34000,types:[TYPES[1]],guard:0,phone:"+998 93 191 49 63",ph:[ph(1),ph(2)],rv:[{n:"Zarina",r:5,t:"Narxiga nisbatan juda yaxshi ombor."},{n:"Malika",r:5,t:"Hammasi kelishilgandek bo'ldi, tavsiya qilaman."},{n:"Dilnoza",r:5,t:"Mahsulotim butun saqlandi, rahmat."}]},
+{id:24,d:"01.08.2026",adr:"Navoiy ko'chasi, 49-uy",co:"Namangan Tekstil",name:"Namangan Kiyim Ombori",vil:"Namangan viloyati",dist:"Namangan shahri",area:800,free:350,minR:30,price:46000,types:[TYPES[3]],guard:1,phone:"+998 94 198 52 74",ph:[ph(2)],rv:[{n:"Sherzod",r:5,t:"Joylashuvi qulay, ega halol va tez javob beradi."}]},
+{id:25,d:"06.06.2026",adr:"Bunyodkor ko'chasi, 56-uy",co:"Chust Savdo",name:"Chust Hunarmand Ombori",vil:"Namangan viloyati",dist:"Chust",area:400,free:200,minR:20,price:41000,types:[TYPES[3],TYPES[5]],guard:0,phone:"+998 95 205 55 85",ph:[ph(3),ph(0)],rv:[{n:"Otabek",r:5,t:"Joylashuvi qulay, ega halol va tez javob beradi."}]},
+{id:26,d:"11.09.2026",adr:"Temiryo'l ko'chasi, 3-uy",co:"Navoiy Aero Logistika",name:"Navoiy Logistika Markazi",vil:"Navoiy viloyati",dist:"Navoiy shahri",area:2500,free:1100,minR:100,price:47000,types:[TYPES[5],TYPES[1]],guard:1,phone:"+998 96 212 58 96",ph:[ph(0)],rv:[{n:"Jasur",r:5,t:"Hammasi kelishilgandek bo'ldi, tavsiya qilaman."},{n:"Bobur",r:5,t:"Mahsulotim butun saqlandi, rahmat."},{n:"Otabek",r:5,t:"Joylashuvi qulay, ega halol va tez javob beradi."}]},
+{id:27,d:"16.07.2026",adr:"Amir Temur ko'chasi, 10-uy",co:"Zarafshon Industrial",name:"Zarafshon Sanoat Ombori",vil:"Navoiy viloyati",dist:"Zarafshon",area:1800,free:800,minR:80,price:39000,types:[TYPES[1],TYPES[4]],guard:1,phone:"+998 97 219 61 17",ph:[ph(1),ph(2)],rv:[{n:"Dilnoza",r:4,t:"Yuk tushirish oson, qo'riqchi bor."}]},
+{id:28,d:"21.10.2026",adr:"Do'stlik ko'chasi, 17-uy",co:"Qarshi Agro Servis",name:"Qarshi Agro Ombori",vil:"Qashqadaryo viloyati",dist:"Qarshi shahri",area:1300,free:600,minR:50,price:34000,types:[TYPES[0]],guard:1,phone:"+998 98 226 64 28",ph:[ph(2)],rv:[{n:"Zarina",r:5,t:"Hammasi kelishilgandek bo'ldi, tavsiya qilaman."}]},
+{id:29,d:"02.08.2026",adr:"Ipak yo'li ko'chasi, 24-uy",co:"Shahrisabz Frigo",name:"Shahrisabz Meva Ombori",vil:"Qashqadaryo viloyati",dist:"Shahrisabz",area:700,free:300,minR:30,price:40000,types:[TYPES[0]],guard:0,phone:"+998 99 233 67 39",ph:[ph(3),ph(0)],rv:[{n:"Madina",r:5,t:"Mahsulotim butun saqlandi, rahmat."},{n:"Nigora",r:5,t:"Joylashuvi qulay, ega halol va tez javob beradi."},{n:"Zarina",r:4,t:"Yuk tushirish oson, qo'riqchi bor."}]},
+{id:30,d:"07.06.2026",adr:"Sanoat ko'chasi, 31-uy",co:"Nukus Logistik",name:"Nukus Savdo Ombori",vil:"Qoraqalpog'iston Respublikasi",dist:"Nukus shahri",area:1000,free:450,minR:40,price:37000,types:[TYPES[0],TYPES[1]],guard:1,phone:"+998 90 240 70 50",ph:[ph(0)],rv:[{n:"Otabek",r:4,t:"Ega bilan kelishish oson bo'ldi."}]},
+{id:31,d:"12.09.2026",adr:"Mustaqillik ko'chasi, 38-uy",co:"Amudaryo Agro",name:"Amudaryo Paxta Ombori",vil:"Qoraqalpog'iston Respublikasi",dist:"Amudaryo",area:1600,free:700,minR:60,price:31000,types:[TYPES[0]],guard:0,phone:"+998 91 247 73 61",ph:[ph(1),ph(2)],rv:[{n:"Nigora",r:4,t:"Toza va quruq, narxi o'rtacha."}]},
+{id:32,d:"17.07.2026",adr:"Yangi hayot ko'chasi, 45-uy",co:"Guliston Stroy",name:"Guliston Qurilish Ombori",vil:"Sirdaryo viloyati",dist:"Guliston shahri",area:1200,free:500,minR:50,price:36000,types:[TYPES[1]],guard:1,phone:"+998 92 254 76 72",ph:[ph(2)],rv:[{n:"Rustam",r:5,t:"Joylashuvi qulay, ega halol va tez javob beradi."},{n:"Sherzod",r:4,t:"Yuk tushirish oson, qo'riqchi bor."},{n:"Jasur",r:4,t:"Ega bilan kelishish oson bo'ldi."}]},
+{id:33,d:"22.10.2026",adr:"Zavod ko'chasi, 52-uy",co:"Yangiyer Industrial",name:"Yangiyer Sanoat Ombori",vil:"Sirdaryo viloyati",dist:"Yangiyer",area:900,free:400,minR:40,price:35000,types:[TYPES[1],TYPES[4]],guard:0,phone:"+998 93 261 79 83",ph:[ph(3),ph(0)],rv:[{n:"Zarina",r:4,t:"Toza va quruq, narxi o'rtacha."}]},
+{id:34,d:"03.08.2026",adr:"Navoiy ko'chasi, 59-uy",co:"Termiz Terminal",name:"Termiz Chegara Logistika",vil:"Surxondaryo viloyati",dist:"Termiz shahri",area:2200,free:1000,minR:80,price:41000,types:[TYPES[5],TYPES[3]],guard:1,phone:"+998 94 268 82 94",ph:[ph(0)],rv:[{n:"Sherzod",r:3,t:"Joyi yaxshi, lekin yo'li biroz yomon."}]},
+{id:35,d:"08.06.2026",adr:"Bunyodkor ko'chasi, 6-uy",co:"Denov Agro",name:"Denov Meva-sabzavot Ombori",vil:"Surxondaryo viloyati",dist:"Denov",area:800,free:350,minR:30,price:33000,types:[TYPES[0]],guard:0,phone:"+998 95 275 85 15",ph:[ph(1),ph(2)],rv:[{n:"Malika",r:4,t:"Yuk tushirish oson, qo'riqchi bor."},{n:"Dilnoza",r:4,t:"Ega bilan kelishish oson bo'ldi."},{n:"Madina",r:4,t:"Toza va quruq, narxi o'rtacha."}]},
+{id:36,d:"13.09.2026",adr:"Temiryo'l ko'chasi, 13-uy",co:"Xorazm Logistika",name:"Urganch Logistika Markazi",vil:"Xorazm viloyati",dist:"Urganch shahri",area:1500,free:650,minR:50,price:38000,types:[TYPES[0],TYPES[3]],guard:1,phone:"+998 96 282 88 26",ph:[ph(2)],rv:[{n:"Jasur",r:3,t:"Joyi yaxshi, lekin yo'li biroz yomon."}]},
+{id:37,d:"18.07.2026",adr:"Amir Temur ko'chasi, 20-uy",co:"Xiva Savdo",name:"Xiva Hunarmandchilik Ombori",vil:"Xorazm viloyati",dist:"Xiva shahri",area:500,free:220,minR:20,price:42000,types:[TYPES[3]],guard:0,phone:"+998 97 289 91 37",ph:[ph(3),ph(0)],rv:[{n:"Rustam",r:4,t:"Yuk tushirish oson, qo'riqchi bor."}]}
+];
+var F={},loc="",sel=null,cur=null,reqd={},rented={},myName="",up=[],pickR=0,me=null;
+var users={"901112233":{name:"Demo egasi",role:"Ombor egasi",pass:"demo1234",phone:"+998 90 111 22 33"},"885966900":{name:"Afruz",role:"Asoschi",founder:1,pass:"strumvex",phone:"+998 88 596 69 00"}};
+var som=function(n){return n.toLocaleString("ru-RU").replace(/\u00a0/g," ")};
+var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+var dig=function(s){return s.replace(/\D/g,"").slice(-9)};
+function avg(w){return w.rv.length?w.rv.reduce(function(a,r){return a+r.r},0)/w.rv.length:0}
+function stars(v){var h="";for(var i=1;i<=5;i++)h+='<span class="st'+(v>=i-.25?"":" off")+'">★</span>';return h}
+function rate(w){return w.rv.length?stars(avg(w))+' <b>'+avg(w).toFixed(1)+'</b> <small>('+w.rv.length+')</small>':'<small class="sub">Hali baho yo\'q</small>'}
+function fill(id,list,first){var s=$(id);s.innerHTML=first?'<option value="">'+first+'</option>':"";list.forEach(function(d){var o=document.createElement("option");o.value=o.textContent=d;s.appendChild(o)})}
+$("loc").innerHTML='<option value="" hidden>Hududni tanlang</option><option value="all">Hammasi</option>'+VILS.map(function(v){return '<option value="'+esc(v)+'">'+esc(v)+'</option>'}).join("");fill("fType",TYPES,"Mahsulot turi");fill("aVil",VILS);fillDist();$("aVil").addEventListener("input",fillDist);
+$("aTypes").innerHTML='<legend>Qaysi mahsulotlarga mos (bir nechtasini tanlang)</legend>'+TYPES.map(function(t){return '<label class="chk"><input type="checkbox" name="types" value="'+esc(t)+'"> '+esc(t)+'</label>'}).join("");
+
+function setTheme(t){document.documentElement.dataset.theme=t;$("darkSw").checked=t==="dark";try{localStorage.setItem("ol-theme",t)}catch(e){}}
+var t0=null;try{t0=localStorage.getItem("ol-theme")}catch(e){}
+setTheme(t0==="dark"?"dark":"light");
+$("darkSw").addEventListener("change",function(){setTheme(this.checked?"dark":"light")});
+var VIEWS=["vFind","vCo","vCoP","vDet","vAuth","vReg","vAdd","vProf","vMsg","vOwner","vNeed"],TAB={vFind:"vFind",vDet:"vFind",vCo:"vCo",vCoP:"vCo",vProf:"vProf",vOwner:"vProf",vNeed:"vProf"},NOTAB=["vAuth","vReg","vAdd","vMsg","vNeed"];
+function show(v){VIEWS.forEach(function(x){$(x).classList.toggle("hide",x!==v)});$("nav").classList.toggle("hide",NOTAB.indexOf(v)>=0);[].forEach.call(document.querySelectorAll(".tab"),function(b){b.classList.toggle("on",b.dataset.tab===TAB[v])});if(v==="vFind")render();if(v==="vCo")renderCo();window.scrollTo(0,0)}
+function toAdd(){if(me){$("hi").textContent="Salom, "+me.name;$("aPhone").value=me.phone;if(!$("aCo").value)$("aCo").value=me.name;show("vAdd")}else needAuth("Omboringizni joylash uchun hisobingizga kiring.",toAdd)}
+var threads=[],curT=null,inChat=false,afterFn=null,OTHER_AVG=75000,Q="",SORT="new";
+var AV='<svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="4"/><path d="M4 21c0-4 3.600-6.500 8-6.500s8 2.500 8 6.500"/></svg>';
+var REPLY=["Assalomu alaykum! Qancha maydon va qancha muddatga kerak?","Joy bor, narxni kelishib olamiz. Qachondan boshlamoqchisiz?","Yaxshi, telefon orqali ham bog'lanishingiz mumkin."];
+function avHTML(u){return u.photo?'<img src="'+u.photo+'" alt="">':esc(u.name.charAt(0).toUpperCase())}
+function readPhoto(file,cb){var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){var c=document.createElement("canvas"),k=Math.min(1,256/Math.max(im.width,im.height));c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);cb(c.toDataURL("image/jpeg",.85))};im.src=r.result};r.readAsDataURL(file)}
+function unread(){return threads.reduce(function(a,t){return a+t.un},0)}
+function updIcons(){$("msgBtn").classList.toggle("hide",!me);var a=$("avBtn");a.classList.toggle("on",!!me);a.innerHTML=me?avHTML(me):AV;a.setAttribute("aria-label",me?"Profil: "+me.name:"Profil");var u=unread();$("badge").textContent=u;$("badge").classList.toggle("hide",!u)}
+function getW(id){return W.filter(function(w){return w.id===id})[0]}
+function needAuth(note,fn){afterFn=fn;$("aNote").textContent=note;show("vAuth")}
+function afterAuth(){updIcons();var f=afterFn;afterFn=null;if(f)f();else openProf()}
+function openProf(){$("pGuest").classList.toggle("hide",!!me);$("pUser").classList.toggle("hide",!me);if(me){$("pName").textContent=me.name;$("pPhone").textContent=me.role+" · "+me.phone;$("pAv").innerHTML=avHTML(me);$("pEdit").classList.add("hide")}show("vProf")}
+function threadFor(w){var t=threads.filter(function(x){return x.wid===w.id})[0];if(!t){t={wid:w.id,msgs:[],un:0};threads.push(t)}return t}
+function showList(){inChat=false;curT=null;$("tChat").classList.add("hide");$("tList").classList.remove("hide");
+ $("tList").innerHTML=threads.length?threads.map(function(t,i){var w=getW(t.wid),l=t.msgs[t.msgs.length-1];return '<div class="item" data-t="'+i+'" tabindex="0" role="button"><div style="flex:1;min-width:0"><h3>'+esc(w.name)+'</h3><div class="sub" style="margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+(l?esc(l.t):"Yozishmani boshlang")+'</div></div>'+(t.un?'<span class="badge" style="position:static">'+t.un+'</span>':"")+'</div>'}).join(""):'<div class="empty">Hali yozishma yo\'q. Ombor sahifasida «So\'rov yuborish» tugmasini bosing.</div>';
+ updIcons();show("vMsg")}
+function drawChat(){$("cBody").innerHTML=curT.msgs.length?curT.msgs.map(function(m){return '<div class="bub '+(m.f==="me"?"me":"")+'">'+esc(m.t)+'</div>'}).join(""):'<div class="empty">Qancha maydon kerakligini va qancha muddatga ekanini o\'zingiz yozing.</div>';$("cBody").scrollTop=1e6}
+function openChat(t){curT=t;inChat=true;t.un=0;var w=getW(t.wid);$("tList").classList.add("hide");$("tChat").classList.remove("hide");$("cTitle").textContent=w.name;$("cSub").textContent="Ega: "+w.phone+". Demo: ega javobi avtomatik yoziladi.";drawChat();updIcons();show("vMsg");$("cIn").focus()}
+function startReq(w){openChat(threadFor(w))}
+$("cForm").addEventListener("submit",function(e){e.preventDefault();var tx=$("cIn").value.trim();if(!tx||!curT)return;var t=curT;t.msgs.push({f:"me",t:tx});reqd[t.wid]=1;$("cIn").value="";drawChat();
+ var k=t.msgs.filter(function(m){return m.f!=="me"}).length;
+ setTimeout(function(){t.msgs.push({f:"ow",t:REPLY[Math.min(k,REPLY.length-1)]});if(inChat&&curT===t)drawChat();else{t.un++;updIcons()}},1400)});
+$("tList").addEventListener("click",function(e){var c=e.target.closest("[data-t]");if(c)openChat(threads[+c.dataset.t])});
+$("tList").addEventListener("keydown",function(e){var c=e.target.closest("[data-t]");if(c&&e.key==="Enter")openChat(threads[+c.dataset.t])});
+$("mBack").onclick=function(){if(inChat)showList();else openProf()};
+$("avBtn").onclick=openProf;$("msgBtn").onclick=showList;
+$("pLogin").onclick=function(){needAuth("Hisobingizga kiring.",openProf)};
+$("pReg").onclick=function(){afterFn=null;show("vReg")};
+$("pMsg").onclick=showList;$("pAdd").onclick=toAdd;
+var ePh;
+function fillEdit(){ePh=undefined;$("eName").value=me.name;var rs_=$("eRole");rs_.innerHTML=me.founder?'<option value="Asoschi">Asoschi</option>':'<option value="Ombor qidiruvchi">Ombor qidiruvchi</option><option value="Ombor egasi">Ombor egasi</option>';rs_.disabled=!!me.founder;if(!me.founder)rs_.value=me.role||"Ombor qidiruvchi";$("ePhone").value=me.phone;$("eErr").textContent="";$("eAv").innerHTML=avHTML(me)}
+$("pEditBtn").onclick=function(){var h=$("pEdit").classList.toggle("hide");if(!h)fillEdit()};
+$("eCancel").onclick=function(){$("pEdit").classList.add("hide")};
+$("ePhoto").addEventListener("change",function(){var f=this.files[0];if(f)readPhoto(f,function(d){ePh=d;$("eAv").innerHTML='<img src="'+d+'" alt="">'})});
+$("eDel").onclick=function(){ePh="";$("eAv").textContent=($("eName").value||me.name).charAt(0).toUpperCase()};
+$("pEdit").addEventListener("submit",function(e){e.preventDefault();var nm=$("eName").value.trim(),ph=$("ePhone").value,nd=dig(ph),od=dig(me.phone),er=$("eErr");
+ if(!nm){er.textContent="Ismni kiriting.";return}
+ if(nd.length<9){er.textContent="Telefon raqamni to'liq kiriting.";return}
+ if(nd!==od&&users[nd]){er.textContent="Bu raqam boshqa hisobga tegishli.";return}
+ if(nd!==od){delete users[od];users[nd]=me}
+ me.name=nm;if(!me.founder)me.role=$("eRole").value;me.phone=ph;if(ePh!==undefined)me.photo=ePh;
+ updIcons();openProf();toast("Profil saqlandi")});
+$("pOut").onclick=function(){me=null;updIcons();openProf();toast("Siz hisobdan chiqdingiz")};
+$("nav").addEventListener("click",function(e){var b=e.target.closest(".tab");if(!b)return;if(b.dataset.tab==="vProf")openProf();else show(b.dataset.tab)});
+function filtered(){var q=Q.trim().toLowerCase();var r=W.filter(function(w){
+ if(loc&&w.vil!==loc)return false;
+ if(F.d&&w.dist!==F.d)return false;
+ if(F.t&&w.types.indexOf(F.t)<0)return false;
+ if(F.a&&!(w.free>=F.a&&w.minR<=F.a))return false;
+ if(F.p&&w.price>F.p)return false;
+ if(q&&(w.name+" "+w.co+" "+w.dist+" "+w.vil+" "+(w.adr||"")).toLowerCase().indexOf(q)<0)return false;
+ return true});
+ if(SORT==="cheap")r=r.slice().sort(function(a,b){return a.price-b.price});
+ if(SORT==="exp")r=r.slice().sort(function(a,b){return b.price-a.price});
+ if(SORT==="rate")r=r.slice().sort(function(a,b){return avg(b)-avg(a)});
+ return r}
+function mapSvg(items,lab){
+ var s='<svg viewBox="0 0 100 100" role="img" aria-label="Joylashuv sxemasi"><path d="M4 22L30 10 52 18 60 28 78 24 90 30 99 40 97 56 82 60 72 66 66 80 60 96 48 88 40 72 30 60 14 54 6 40z" fill="var(--card)" stroke="var(--g)" stroke-width="1.2" opacity=".9"/>',cn={};
+ items.forEach(function(w){var p=VPOS[w.vil]||[50,50],k=cn[w.vil]=(cn[w.vil]||0)+1,o=((k-1)%3)*5-5,oy=Math.floor((k-1)/3)*6;
+  s+='<g class="pin'+(lab?' sel':'')+'"><circle cx="'+(p[0]+o)+'" cy="'+(p[1]+oy)+'" r="6"/><text x="'+(p[0]+o)+'" y="'+(p[1]+oy+3)+'">'+Math.round(w.price/1000)+'k</text>'+(lab?'<text style="fill:var(--gd);font-size:5px" x="'+Math.min(78,Math.max(22,p[0]+o))+'" y="'+(p[1]+oy+14)+'">'+esc(short(w.vil))+'</text>':'')+'</g>'});
+ return s+'</svg>'}
+function renderStats(){var n=W.length,sum=0;W.forEach(function(w){sum+=w.price});var avg2=n?Math.round(sum/n):0;
+ $("stats").innerHTML='<div class="tiles"><div class="tile"><b>'+n+'</b><small>omborlar soni</small></div><div class="tile"><b>'+som(avg2)+'</b><small>o\'rtacha narx, so\'m/m²</small></div></div>'}
+function renderCo(){var m={};W.forEach(function(w){var c=m[w.co]||(m[w.co]={n:w.co,k:0,rs:[],v:{}});c.k++;w.rv.forEach(function(r){c.rs.push(r.r)});c.v[short(w.vil)]=1});
+ $("coList").innerHTML=Object.keys(m).map(function(k){var c=m[k],r=c.rs.length?c.rs.reduce(function(x,y){return x+y},0)/c.rs.length:0;return '<div class="card" data-co="'+esc(c.n)+'" tabindex="0" role="button"><div class="ct"><h3>'+esc(c.n)+'</h3><span class="rt">'+(r?"★ "+r.toFixed(1):"")+'</span></div><div class="pr" style="color:var(--ink)">'+c.k+' ta ombor</div><div class="co">'+esc(Object.keys(c.v).join(", "))+'</div></div>'}).join("");renderStats()}
+var curCo=null,fromCo=null;
+function chipH(t){return '<span class="chip">'+esc(t)+'</span>'}
+function openCo(name){curCo=name;var ws=W.filter(function(w){return w.co===name}),ty=[],rs=[],vs={};
+ ws.forEach(function(w){vs[short(w.vil)]=1;w.types.forEach(function(t){if(ty.indexOf(t)<0)ty.push(t)});w.rv.forEach(function(r){rs.push(r.r)})});
+ var r=rs.length?rs.reduce(function(a,b){return a+b},0)/rs.length:0;
+ ws.sort(function(a,b){return dnum(b.d)-dnum(a.d)});
+ $("coHead").innerHTML='<h1 style="margin:0 0 6px">'+esc(name)+'</h1><div>'+(r?stars(r)+' <b>'+r.toFixed(1)+'</b> <small>('+rs.length+' sharh)</small>':'<small class="sub">Hali baho yo\'q</small>')+'</div>'+
+ '<h2 style="margin:16px 0 8px">Ixtisoslashuvi</h2><div class="chips" style="margin:0">'+ty.map(chipH).join("")+'</div>'+
+ '<div class="facts two"><div><small>Ochilgan</small><b>'+coYear(name)+'-yil</b></div><div><small>Omborlar</small><b>'+ws.length+' ta</b></div><div><small>Hududlar</small><b style="font-size:15px">'+esc(Object.keys(vs).join(", "))+'</b></div><div><small>Xizmat ko\'rsatgan</small><b>'+som(coClients(name))+' kishi</b></div></div><h2 style="margin:6px 0 10px">Omborlari</h2>';
+ $("coWh").innerHTML=ws.map(function(w){return card(w,true)}).join("");show("vCoP")}
+$("coList").addEventListener("click",function(e){var c=e.target.closest("[data-co]");if(c)openCo(c.dataset.co)});
+$("coList").addEventListener("keydown",function(e){var c=e.target.closest("[data-co]");if(c&&e.key==="Enter")openCo(c.dataset.co)});
+$("coWh").addEventListener("click",function(e){var c=e.target.closest("[data-open]");if(c)openW(+c.dataset.open,true)});
+$("coWh").addEventListener("keydown",function(e){var c=e.target.closest("[data-open]");if(c&&e.key==="Enter")openW(+c.dataset.open,true)});
+$("coBack").onclick=function(){show("vCo")};
+$("home").onclick=function(){show("vFind")};
+$("toReg").onclick=function(){show("vReg")};
+$("toLogin").onclick=function(){show("vAuth")};
+$("out").onclick=function(){me=null;updIcons();show("vFind");toast("Siz hisobdan chiqdingiz")};
+$("loginForm").addEventListener("submit",function(e){e.preventDefault();var u=users[dig($("lPhone").value)];
+ if(!u||u.pass!==$("lPass").value){$("lErr").textContent="Telefon yoki parol noto'g'ri. Ro'yxatdan o'tmagan bo'lsangiz, pastdagi tugmani bosing.";return}
+ $("lErr").textContent="";me=u;this.reset();afterAuth()});
+$("regForm").addEventListener("submit",function(e){e.preventDefault();var p=dig($("gPhone").value),er=$("gErr");
+ if(p.length<9)er.textContent="Telefon raqamni to'liq kiriting.";
+ else if(users[p])er.textContent="Bu raqam bilan hisob bor. Kirish tugmasini bosing.";
+ else if($("gPass").value!==$("gPass2").value)er.textContent="Parollar bir xil emas.";
+ else{er.textContent="";me=users[p]={name:$("gName").value,role:$("gRole").value,pass:$("gPass").value,phone:$("gPhone").value};this.reset();afterAuth();toast("Ro'yxatdan o'tdingiz")}});
+function phs(){["loc","fType","fPrice","fArea","fDist"].forEach(function(i){$(i).classList.toggle("ph",!$(i).value)})}
+function refDist(){var d=[],seen={};W.forEach(function(w){if((!loc||w.vil===loc)&&!seen[w.dist]){seen[w.dist]=1;d.push(w.dist)}});fill("fDist",d,"Tuman");$("fDist").value=F.d||""}
+function card(w,inCo){var ty=w.types.slice(0,2).map(chipH).join("")+(w.types.length>2?'<span class="chip">+'+(w.types.length-2)+'</span>':"");
+ return '<div class="card" data-open="'+w.id+'" tabindex="0" role="button"><div class="ct"><h3>'+w.minR+' m² dan '+w.free+' m² gacha</h3><span class="rt">'+(w.rv.length?"★ "+avg(w).toFixed(1):"")+'</span></div><div class="pr">'+som(w.price)+' <small>so\'m/m²</small></div><div class="co">'+(inCo?"":esc(w.co)+" · ")+esc(w.dist)+', '+esc(short(w.vil))+'</div><div class="chips">'+ty+'</div>'+(inCo?'<div class="dt">Joylangan: '+w.d+'</div>':"")+'</div>'}
+function render(){refDist();var items=filtered(),on=F.t||F.p||F.a||F.d||Q;
+ $("n").textContent=items.length;$("fClr").classList.toggle("hide",!on);phs();
+ $("list").innerHTML=items.length?items.map(function(w){return card(w)}).join(""):'<div class="empty">Mos ombor topilmadi. Hududni yoki filtrlarni o\'zgartirib ko\'ring.</div>'}
+$("loc").addEventListener("input",function(){loc=this.value==="all"?"":this.value;F.d="";render()});
+$("q").addEventListener("input",function(){Q=this.value;render()});
+$("fBtn").onclick=function(){var h=$("fRow").classList.toggle("hide");this.setAttribute("aria-expanded",String(!h));$("icF").classList.toggle("hide",!h);$("icX").classList.toggle("hide",h)};
+$("fType").addEventListener("input",function(){F.t=this.value;render()});
+$("fPrice").addEventListener("input",function(){F.p=+this.value||0;render()});
+$("fArea").addEventListener("input",function(){F.a=+this.value||0;render()});
+$("fDist").addEventListener("input",function(){F.d=this.value;render()});
+$("fClr").onclick=function(){F={};Q="";$("q").value="";["fType","fPrice","fArea"].forEach(function(i){$(i).value=""});render()};
+$("sort").addEventListener("input",function(){SORT=this.value;$("sortL").textContent=this.value==="new"?"Saralash":({cheap:"Avval arzon",exp:"Avval qimmat",rate:"Reyting bo'yicha"})[this.value];render()});
+$("postBtn").onclick=toAdd;
+$("list").addEventListener("click",function(e){var c=e.target.closest("[data-open]");if(c)openW(+c.dataset.open)});
+$("list").addEventListener("keydown",function(e){var c=e.target.closest("[data-open]");if(c&&e.key==="Enter")openW(+c.dataset.open)});
+
+function openW(id,fc){cur=W.filter(function(w){return w.id===id})[0];sel=id;pickR=0;fromCo=fc?curCo:null;detail();show("vDet")}
+function detail(){var w=cur,st=reqd[w.id],rn=rented[w.id],lc=esc(w.vil)+", "+esc(w.dist);
+ var rows=w.rv.length?w.rv.map(function(r){return '<div class="rev"><b>'+esc(r.n)+'</b> '+stars(r.r)+'<div>'+esc(r.t)+'</div></div>'}).join(""):'<div class="empty">Hali sharh yo\'q.</div>';
+ var form;
+ if(rn)form='<div class="panel" style="margin-top:12px"><b>Sizning bahoingiz</b><div class="pick" id="pick">'+[1,2,3,4,5].map(function(i){return '<button type="button" data-s="'+i+'" class="'+(pickR>=i?"on":"")+'" aria-label="'+i+' ball">★</button>'}).join("")+'</div><label>Sharh<textarea id="rvT" rows="3" placeholder="Ombordan foydalanish tajribangiz"></textarea></label><button class="btn p" id="rvSend" style="margin-top:10px">Sharh qoldirish</button></div>';
+ else form='<div class="empty" style="margin-top:12px">Sharh va baho faqat shu ombordan foydalanganlar uchun. '+(st?'So\'rovingiz yuborilgan, ega qabul qilgach sharh yozasiz.':'Avval so\'rov yuboring.')+'</div>';
+ $("vDet").innerHTML='<button class="btn" id="back">← Orqaga</button><h1>'+esc(w.name)+'</h1><p class="sub" style="margin:0 0 6px">'+esc(w.co)+'</p><div>'+rate(w)+' &nbsp; <span class="sub">'+lc+'</span></div>'+
+ '<p class="sub" style="margin-top:10px">Umumiy hudud <b>'+w.area+' m²</b>. Ijaraga <b>'+w.minR+' m² dan '+w.free+' m² gacha</b> beriladi.</p>'+
+ '<div class="gal"><img class="main" id="gm" src="'+w.ph[0]+'" alt="Ombor rasmi"><div class="thumbs">'+w.ph.map(function(p){return '<img src="'+p+'" alt="" data-p>'}).join("")+'</div></div>'+
+ '<div class="facts"><div><small>Ijaraga beriladi</small><b>'+w.minR+' m² dan '+w.free+' m² gacha</b></div><div><small>Umumiy hudud</small><b>'+w.area+' m²</b></div><div><small>Narx</small><b>'+som(w.price)+' so\'m/m²</b></div><div><small>Joylangan</small><b>'+w.d+'</b></div></div>'+
+ w.types.map(function(t){return '<span class="tag">'+esc(t)+'</span>'}).join("")+(w.guard?'<span class="tag">Qo\'riqlanadi 24/7</span>':'')+
+ '<div style="margin-top:14px">'+(rn?'<span class="tag">Siz bu ombordan foydalanasiz</span>':st?'<button class="btn" id="goChat">Yozishmani ochish</button> <button class="btn" id="demo">Demo: ega qabul qildi</button> <small class="sub">Demo tugma ijara boshlanganini ko\'rsatadi</small>':'<button class="btn p" id="req">So\'rov yuborish</button>')+'</div>'+
+ '<h2>Manzil</h2><div class="panel">'+lc+', '+esc(w.adr||"")+'</div>'+
+ '<h2>Sharhlar</h2><div class="panel">'+rows+'</div>'+form}
+$("vDet").addEventListener("click",function(e){var t=e.target;
+ if(t.id==="back"){if(fromCo)openCo(fromCo);else show("vFind")}
+ else if(t.id==="req"){if(me)startReq(cur);else needAuth("So'rov yuborish uchun hisobingizga kiring yoki ro'yxatdan o'ting.",function(){startReq(cur)})}
+ else if(t.id==="goChat"){openChat(threadFor(cur))}
+ else if(t.id==="demo"){rented[cur.id]=1;detail();toast("Ega so'rovni qabul qildi. Endi sharh qoldira olasiz")}
+ else if(t.dataset&&t.dataset.p!==undefined){$("gm").src=t.src}
+ else if(t.dataset&&t.dataset.s){pickR=+t.dataset.s;var v=$("rvT").value;detail();$("rvT").value=v}
+ else if(t.id==="rvSend"){var tx=$("rvT").value.trim();if(!pickR){toast("Avval 1 dan 5 gacha baho tanlang");return}
+  if(!tx){toast("Sharh matnini yozing");return}
+  cur.rv.unshift({n:(me?me.name:"Siz"),r:pickR,t:tx});pickR=0;detail();toast("Sharh qo'shildi")}});
+$("photos").addEventListener("change",function(){var fs=[].slice.call(this.files,0,5);up=[];$("prev").innerHTML="";
+ fs.forEach(function(f){var r=new FileReader();r.onload=function(){up.push(r.result);var i=document.createElement("img");i.src=r.result;i.alt="Tanlangan rasm";$("prev").appendChild(i)};r.readAsDataURL(f)})});
+$("addForm").addEventListener("submit",function(e){e.preventDefault();var f=new FormData(this),a=+f.get("area"),fr=+f.get("free"),mn=+f.get("minR"),ty=f.getAll("types"),er=$("aErr");
+ if(!ty.length){er.textContent="Kamida bitta mahsulot turini tanlang.";return}
+ if(fr>a){er.textContent="Ijaraga beriladigan maydon umumiy maydondan katta bo'lmasligi kerak.";return}
+ if(mn>fr){er.textContent="Eng kam ijara maydoni ijaraga beriladigan maydondan katta bo'lmasligi kerak.";return}
+ er.textContent="";
+ var w={id:Date.now(),d:today(),adr:f.get("adr"),co:f.get("co"),name:f.get("name"),vil:f.get("vil"),dist:f.get("dist"),area:a,free:fr,minR:mn,price:+f.get("price"),types:ty,guard:f.get("guard")?1:0,phone:f.get("phone"),ph:up.length?up:[ph(2)],rv:[]};
+ W.unshift(w);sel=w.id;loc="";F={};Q="";$("loc").value="";$("q").value="";["fType","fPrice","fArea"].forEach(function(i){$(i).value=""});up=[];$("prev").innerHTML="";this.reset();fillDist();show("vFind");toast("Ombor qo'shildi va ro'yxatda ko'rinadi")});
+function toast(t){var e=$("toast");e.textContent=t;e.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(function(){e.style.display="none"},3000)}
+updIcons();phs();render();
+var EYE='<svg viewBox="0 0 24 24"><path d="M2 12s3.600-7 10-7 10 7 10 7-3.600 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',EYEOFF='<svg viewBox="0 0 24 24"><path d="M3 3l18 18M10.600 6.100A10 10 0 0 1 12 5c6.400 0 10 7 10 7a17 17 0 0 1-3.200 4M6.600 6.600A17 17 0 0 0 2 12s3.600 7 10 7a9.500 9.500 0 0 0 4.400-1.100M9.900 9.900a3 3 0 0 0 4.200 4.200"/></svg>';
+document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".eye");if(!b)return;var i=$(b.dataset.eye),sh=i.type==="password";i.type=sh?"text":"password";b.innerHTML=sh?EYEOFF:EYE;b.setAttribute("aria-label",sh?"Parolni yashirish":"Parolni ko'rsatish")});
+</script>
+
+<script>
+/* ===== Ombor.uz v2 enhancement layer =====
+   Frontend is immediately usable. For real shared production data:
+   fill BACKEND.supabaseUrl/supabaseAnonKey and configure Supabase Auth/DB;
+   SMS is handled by the configured Auth phone provider.
+   Telegram must go through a server/Edge Function — never expose a bot token here.
+*/
+(function(){
+"use strict";
+window.BACKEND={
+  supabaseUrl:"", supabaseAnonKey:"",
+  telegramFunctionUrl:"",
+  smsProvider:"supabase-phone-otp"
+};
+var favs=JSON.parse(localStorage.getItem("om-favs")||"[]");
+var requests=JSON.parse(localStorage.getItem("om-requests")||"[]");
+var demands=JSON.parse(localStorage.getItem("om-demands")||"[]");
+var lang=localStorage.getItem("om-lang")||"uz";
+
+function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
+function money(n){return Number(n||0).toLocaleString("ru-RU").replace(/\u00a0/g," ")+" so'm"}
+function getCurrentUser(){return window.me||null}
+function ownerWarehouses(){var u=getCurrentUser();if(!u)return [];return window.W.filter(function(w){return (w.ownerPhone&&w.ownerPhone===u.phone)||w.phone===u.phone})}
+function isFav(id){return favs.indexOf(id)>=0}
+function toggleFav(id){var i=favs.indexOf(id);if(i<0)favs.push(id);else favs.splice(i,1);save("om-favs",favs);toast(i<0?"Sevimlilarga qo‘shildi":"Sevimlilardan olib tashlandi");if(window.cur&&window.cur.id===id)detailV2();renderV2()}
+function verifyBadge(w){return w.verified?'<span class="v2-verified">Tasdiqlangan ega</span>':""}
+function condHTML(w){var a=[];if(w.guard)a.push("24/7 qo‘riqlash");if(w.conditions){if(w.conditions.cold)a.push("❄ Sovutgich");if(w.conditions.lift)a.push("⚙ Yuk texnikasi");if(w.conditions.ramp)a.push("↗ Pandus");if(w.conditions.camera)a.push("◉ Video kuzatuv");if(w.conditions.fire)a.push("🧯 Yong‘in tizimi");if(w.conditions.hazard)a.push("⚠ Xavfli moddalar litsenziyasi")}return a.map(function(x){return "<span>"+x+"</span>"}).join("")}
+function ownerStatus(w){return w.rented?'<span class="v2-status busy">Band</span>':'<span class="v2-status free">Bo‘sh</span>'}
+function notifyOwner(w,req){
+  /* Telegram notification is intentionally server-side. */
+  if(window.BACKEND.telegramFunctionUrl){
+    fetch(window.BACKEND.telegramFunctionUrl,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type:"warehouse_request",warehouseId:w.id,request:req})}).catch(function(){});
+  }
+}
+function sendTelegramMessage(w,text){
+  if(window.BACKEND.telegramFunctionUrl){
+    fetch(window.BACKEND.telegramFunctionUrl,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type:"message",warehouseId:w.id,text:text})}).catch(function(){});
+  }
+}
+function calcHTML(w){
+  return '<div class="v2-calc"><b>Narx kalkulyatori</b><div class="v2-grid">'+
+    '<label>Maydon<input id="calcArea" type="number" min="'+w.minR+'" max="'+w.free+'" value="'+w.minR+'" inputmode="numeric"><small class="calc-range">Ijara maydoni: '+w.minR+'–'+w.free+' m²</small></label>'+
+    '<label>Muddat (oy)<input id="calcMonths" type="number" min="1" value="3" inputmode="numeric"></label></div>'+
+    '<div class="result" id="calcResult">'+money(w.minR*w.price*3)+'</div>'+
+    '<small class="sub">Hisob: tanlangan maydon × oy × narx/m².</small></div>';
+}
+function favIcon(w){var on=isFav(w.id);return '<button class="v2-heart'+(on?' on':'')+'" id="favBtn" type="button" aria-pressed="'+on+'" aria-label="Sevimlilar"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.7-8 11-8 11z"/></svg></button>'}
+function actionButtons(w){
+  return '<div class="v2-contact-row">'+
+    '<a class="v2-icon-action call" href="tel:'+String(w.phone||"").replace(/\s/g,"")+'" aria-label="Qo‘ng‘iroq qilish" title="Qo‘ng‘iroq qilish"><svg viewBox="0 0 24 24"><path d="M6.6 3.5l3 3.2-1.8 2.5c1 2.2 2.8 4 5 5l2.5-1.8 3.2 3c.7.7.7 1.8 0 2.5l-1.2 1.2c-.6.6-1.5.8-2.3.5C8.9 17.5 6.5 15.1 4.2 9c-.3-.8-.1-1.7.5-2.3l1.2-1.2c.2-.2.5-.4.7-.5z"/></svg><span>Qo‘ng‘iroq</span></a>'+
+    '<button class="v2-icon-action tg" id="tgWrite" type="button" aria-label="Telegramda yozish" title="Telegramda yozish"><svg viewBox="0 0 24 24"><path d="M21 3L3.8 10.1c-.8.3-.8 1.4 0 1.7l4.7 1.6 1.7 5.2c.2.7 1.1.9 1.6.4l2.7-2.7 4.5 3.3c.6.4 1.5.1 1.7-.7L21.9 4c.2-.7-.3-1.3-.9-1z"/><path d="M8.5 13.4L18.2 6"/></svg><span>Telegram</span></button>'+
+    '</div>';
+}
+function detailV2(){
+  var w=window.cur;if(!w)return;
+  var st=window.reqd[w.id],rn=window.rented[w.id];
+  var lc=esc(w.vil)+", "+esc(w.dist);
+  var rows=w.rv&&w.rv.length?w.rv.map(function(r){return '<div class="rev"><b>'+esc(r.n)+'</b> '+stars(r.r)+'<div>'+esc(r.t)+'</div></div>'}).join(""):'<div class="empty">Hali sharh yo‘q.</div>';
+  var reqButton=rn?'<span class="v2-status busy">Bu ombor band</span>':st?'<button class="btn" id="goChat2">Yozishmani ochish</button>':'<button class="btn p req-compact" id="req2">So‘rov yuborish</button>';
+  $("vDet").innerHTML='<button class="btn" id="back">← Orqaga</button>'+
+    '<div class="titlebar"><h1>'+esc(w.name)+'</h1><div class="ic">'+verifyBadge(w)+favIcon(w)+'</div></div>'+
+    '<p class="sub" style="margin:0 0 6px">'+esc(w.co)+'</p>'+
+    '<div>'+rate(w)+' &nbsp; <span class="sub">'+lc+'</span> &nbsp; '+ownerStatus(w)+'</div>'+
+
+    '<div class="gal"><img class="main" id="gm" src="'+w.ph[0]+'" alt="Ombor rasmi"><div class="thumbs">'+w.ph.map(function(p){return '<img src="'+p+'" alt="" data-p>'}).join("")+'</div></div>'+
+    '<div class="facts"><div><small>Ijaraga beriladi</small><b>'+w.minR+'–'+w.free+' m²</b></div><div><small>Umumiy hudud</small><b>'+w.area+' m²</b></div><div><small>Narx</small><b>'+money(w.price)+'/m²</b></div><div><small>Joylangan</small><b>'+w.d+'</b></div></div>'+
+    '<div class="v2-cond">'+condHTML(w)+'</div>'+calcHTML(w)+
+    '<div class="v2-main-actions">'+reqButton+' <button class="btn" id="reportBtn">⚑ Shikoyat qilish</button></div>'+actionButtons(w)+
+    '<h2>Manzil</h2><div class="panel v2-location"><div class="v2-address"><svg viewBox="0 0 24 24"><path d="M12 22s7-7.5 7-13a7 7 0 0 0-14 0c0 5.5 7 13 7 13z"/><circle cx="12" cy="9" r="2.5"/></svg><span>'+lc+', '+esc(w.adr||"")+'</span></div><a class="map-link" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent((w.vil||'')+', '+(w.dist||'')+', '+(w.adr||''))+'"><svg viewBox="0 0 24 24"><path d="M9 18l-6 3V6l6-3 6 3 6-3v15l-6 3-6-3z"/><path d="M9 3v15M15 6v15"/></svg><span>Xaritada ko‘rsatish</span><span class="arrow">↗</span></a></div>'+
+    '<h2>Sharhlar</h2><div class="panel">'+rows+'</div>'+
+    '<div class="v2-note">Ishonch belgisi faqat admin ombor va hujjatlarni tekshirgandan keyin beriladi.</div>';
+  $("calcArea").addEventListener("input",updateCalc);$("calcMonths").addEventListener("input",updateCalc);
+}
+function updateCalc(){
+  var w=window.cur;
+  var areaEl=$("calcArea"),monthsEl=$("calcMonths");
+  var a=Number(areaEl.value),m=Number(monthsEl.value);
+  var areaBad=!Number.isFinite(a)||a<w.minR||a>w.free;
+  var monthsBad=!Number.isFinite(m)||m<1;
+  areaEl.classList.toggle("invalid",areaBad);
+  monthsEl.classList.toggle("invalid",monthsBad);
+  if(areaBad||monthsBad){ $("calcResult").textContent="—"; return; }
+  $("calcResult").textContent=money(a*m*w.price);
+}
+function renderV2(){
+  if($("favList"))$("favList").innerHTML=favs.length?favs.map(function(id){var w=getW(id);return w?card(w):""}).join(""):'<div class="empty">Hali sevimli ombor yo‘q.</div>';
+}
+function openOwner(){
+  if(!getCurrentUser()){needAuth("Ega kabineti uchun hisobingizga kiring.",openOwner);return}
+  if(getCurrentUser().role!=="Ombor egasi"&&getCurrentUser().founder!==1){toast("Bu bo‘lim ombor egalari uchun.");return}
+  var ws=ownerWarehouses();
+  $("ownerList").innerHTML=(ws.length?ws.map(function(w){
+    var rr=requests.filter(function(r){return r.wid===w.id});
+    return '<div class="panel"><div class="titlebar"><h2 style="margin:0">'+esc(w.name)+'</h2>'+ownerStatus(w)+'</div>'+
+      '<div class="sub">'+esc(w.dist)+', '+money(w.price)+'/m² · '+w.free+' m²</div>'+
+      '<div class="v2-actions"><button class="btn" data-edit="'+w.id+'">Narxni o‘zgartirish</button><button class="btn" data-busy="'+w.id+'">'+(w.rented?"Bo‘shatish":"Band qilish")+'</button></div>'+
+      '<h3>Kelgan so‘rovlar ('+rr.length+')</h3>'+
+      (rr.length?rr.map(function(r){return '<div class="v2-request"><b>'+esc(r.name)+'</b><div class="meta">'+esc(r.phone)+' · '+r.area+' m² · '+r.months+' oy</div><p>'+esc(r.text||"")+'</p><div class="v2-actions"><button class="btn p" data-accept="'+r.id+'">Qabul qilish</button><button class="btn" data-reject="'+r.id+'">Rad etish</button></div></div>'}).join(""):'<div class="empty">Hali so‘rov yo‘q.</div>')+'</div>'
+  }).join(""):'<div class="empty">Sizga tegishli omborlar topilmadi. Avval ombor joylang.</div>');
+  show("vOwner");
+}
+function createRequest(w){
+  if(!getCurrentUser()){needAuth("So‘rov yuborish uchun hisobingizga kiring.",function(){createRequest(w)});return}
+  var r={id:Date.now(),wid:w.id,name:getCurrentUser().name,phone:getCurrentUser().phone,area:w.minR,months:3,text:"Ombor bo‘yicha so‘rov",status:"pending",created:new Date().toISOString()};
+  requests.push(r);save("om-requests",requests);window.reqd[w.id]=1;threadFor(w);notifyOwner(w,r);toast("So‘rov egaga yuborildi");detailV2();
+}
+function createDemand(){
+  if(!getCurrentUser()){needAuth("E’lon qoldirish uchun hisobingizga kiring.",function(){show("vNeed")});return}
+  var d={id:Date.now(),name:getCurrentUser().name,phone:getCurrentUser().phone,type:$("needType").value,area:+$("needArea").value,months:+$("needMonths").value,vil:$("needVil").value,note:$("needNote").value,status:"open",created:new Date().toISOString()};
+  demands.unshift(d);save("om-demands",demands);$("needForm").reset();renderDemands();toast("Talab e’loni joylandi");
+}
+function renderDemands(){
+  var el=$("needList");if(!el)return;
+  el.innerHTML=demands.length?'<h2>Faol talablar</h2>'+demands.slice(0,10).map(function(d){return '<div class="v2-request"><b>'+esc(d.type)+'</b><div class="meta">'+d.area+' m² · '+d.months+' oy · '+esc(d.vil)+'</div><p>'+esc(d.note||"")+'</p></div>'}).join(""):'';
+}
+function initV2(){
+  $("needType").innerHTML='<option value="">Mahsulot turini tanlang</option>'+TYPES.map(function(x){return '<option value="'+esc(x)+'">'+esc(x)+'</option>'}).join("");
+  $("needVil").innerHTML='<option value="">Hududni tanlang</option>'+VILS.map(function(x){return '<option value="'+esc(x)+'">'+esc(x)+'</option>'}).join("");
+  $("pNeed").onclick=function(){renderDemands();show("vNeed")};
+  $("needBack").onclick=function(){openProf()};
+  $("ownerBack").onclick=function(){openProf()};
+  $("pOwner").onclick=openOwner;
+  $("needForm").addEventListener("submit",function(e){e.preventDefault();createDemand()});
+  $("favList").addEventListener("click",function(e){var c=e.target.closest("[data-open]");if(c)openW(+c.dataset.open)});
+  $("ownerList").addEventListener("click",function(e){
+    var b=e.target.closest("button");if(!b)return;
+    var id=+(b.dataset.edit||b.dataset.busy||b.dataset.accept||b.dataset.reject||0);
+    var w=getW(id);
+    if(b.dataset.edit){var p=prompt("Yangi narx (so‘m/m²):",w.price);if(p&&+p>0){w.price=+p;toast("Narx yangilandi");openOwner()}}
+    if(b.dataset.busy){w.rented=!w.rented;toast(w.rented?"Ombor band qilindi":"Ombor bo‘shatildi");openOwner()}
+    if(b.dataset.accept){var r=requests.filter(function(x){return x.id===id})[0];if(r){r.status="accepted";var ww=getW(r.wid);if(ww)ww.rented=true;save("om-requests",requests);toast("So‘rov qabul qilindi");openOwner()}}
+    if(b.dataset.reject){var r2=requests.filter(function(x){return x.id===id})[0];if(r2){r2.status="rejected";save("om-requests",requests);toast("So‘rov rad etildi");openOwner()}}
+  });
+  document.addEventListener("click",function(e){
+    var t=e.target;
+    if(t.closest&&t.closest("#favBtn"))toggleFav(window.cur.id);
+    else if(t.id==="tgWrite"){sendTelegramMessage(window.cur,"Salom, "+window.cur.name+" bo‘yicha savolim bor.");toast("Telegram orqali bog‘lanish tayyorlandi")}
+    else if(t.id==="req2")createRequest(window.cur);
+    else if(t.id==="goChat2")openChat(threadFor(window.cur));
+    else if(t.id==="reportBtn"){var reason=prompt("Shikoyat sababini yozing:");if(reason)toast("Shikoyat admin tekshiruviga yuborildi")}
+  });
+  document.querySelectorAll("[data-lang]").forEach(function(b){b.onclick=function(){lang=b.dataset.lang;localStorage.setItem("om-lang",lang);document.querySelectorAll("[data-lang]").forEach(function(x){x.classList.toggle("on",x.dataset.lang===lang)});toast("Til: "+lang.toUpperCase())}});
+  document.querySelectorAll("[data-lang]").forEach(function(x){x.classList.toggle("on",x.dataset.lang===lang)});
+}
+var oldOpenW=window.openW;
+window.openW=function(id,fc){oldOpenW(id,fc);setTimeout(detailV2,0)}
+var oldDetail=window.detail;
+window.detail=function(){oldDetail();setTimeout(detailV2,0)}
+var oldAddSubmit=$("addForm").onsubmit;
+$("addForm").addEventListener("submit",function(){
+  setTimeout(function(){
+    var w=window.W[0];if(w&&getCurrentUser()&&w.id===sel){
+      w.ownerPhone=getCurrentUser().phone;w.verified=false;w.rented=false;
+      w.conditions={cold:$('input[name="cold"]').checked,lift:$('input[name="lift"]').checked,ramp:$('input[name="ramp"]').checked,camera:$('input[name="camera"]').checked,fire:$('input[name="fire"]').checked,hazard:$('input[name="hazard"]').checked};
+      toast("Ombor admin tekshiruvidan keyin tasdiqlanadi");
+    }
+  },50)
+});
+initV2();renderV2();
+
+/* Production integration notes exposed for a developer/admin. */
+window.OMBOR_BACKEND_SCHEMA={
+  tables:{
+    profiles:"id, phone, name, role, telegram_chat_id, verified",
+    warehouses:"id, owner_id, name, vil, dist, address, area, free, min_r, price, conditions_json, verified, rented",
+    requests:"id, warehouse_id, renter_id, area, months, text, status",
+    messages:"id, request_id, sender_id, text, created_at",
+    demands:"id, renter_id, type, area, months, vil, note, status",
+    reports:"id, warehouse_id, reporter_id, reason, status"
+  },
+  auth:"SMS OTP via Supabase Auth or another server-side SMS provider",
+  telegram:"Server/Edge Function sends Telegram Bot API notifications; bot token must remain server-side",
+  payments:"Payme/Click should be added through a backend/payment provider, never with secret keys in HTML"
+};
+})();
+</script>
+
+
+
+
+
+<script>
+/* ===== Ombor.uz language system (uz / ru / en) ===== */
+(function(){
+"use strict";
+var LANG="uz",D={},PN={},MISS={},DEBUG=!!window.__I18N_DEBUG;
+function nz(s){return String(s).replace(/[\u2018\u2019\u02bb\u02bc`\u00b4]/g,"'")}
+function add(o){for(var k in o)D[nz(k)]=o[k]}
+function X(ru,en){return LANG==="ru"?ru:en}
+function pl(n,a,b,c){n=Math.abs(+n);var m10=n%10,m100=n%100;return(m10===1&&m100!==11)?a:(m10>=2&&m10<=4&&(m100<10||m100>=20))?b:c}
+add({
+/* navigation / general */
+"ombor.uz: ombor ijarasi":["ombor.uz: аренда складов","ombor.uz: warehouse rental"],
+"Ombor rasmi":["Фото склада","Warehouse photo"],
+"Omborlar":["Склады","Warehouses"],
+"Kompaniyalar":["Компании","Companies"],
+"Profil":["Профиль","Profile"],
+"Asosiy bo'limlar":["Основные разделы","Main sections"],
+"Til":["Язык","Language"],
+"Hududni tanlang":["Выберите регион","Select region"],
+"Hammasi":["Все","All"],
+"Omborlarni qidirish":["Поиск складов","Search warehouses"],
+"Filtr":["Фильтр","Filter"],
+"Mahsulot turi":["Тип товара","Product type"],
+"Narx":["Цена","Price"],
+"Maydon":["Площадь","Area"],
+"Kerakli maydon":["Нужная площадь","Required area"],
+"Tuman":["Район","District"],
+"Tozalash":["Сбросить","Clear"],
+"40 000 gacha":["до 40 000","up to 40 000"],
+"60 000 gacha":["до 60 000","up to 60 000"],
+"80 000 gacha":["до 80 000","up to 80 000"],
+"100 000 gacha":["до 100 000","up to 100 000"],
+"Saralash":["Сортировка","Sort"],
+"Yangilari":["Сначала новые","Newest first"],
+"Avval arzon":["Сначала дешёвые","Cheapest first"],
+"Avval qimmat":["Сначала дорогие","Most expensive first"],
+"Reyting bo'yicha":["По рейтингу","By rating"],
+"Ombor joylash":["Разместить склад","Post a warehouse"],
+"Mos ombor topilmadi. Hududni yoki filtrlarni o'zgartirib ko'ring.":["Подходящих складов не найдено. Измените регион или фильтры.","No matching warehouses. Try changing the region or filters."],
+"Hali baho yo'q":["Пока нет оценок","No ratings yet"],
+"so'm/m²":["сум/м²","UZS/m²"],
+"← Orqaga":["← Назад","← Back"],
+"← Kompaniyalar":["← Компании","← Companies"],
+/* company */
+"Ixtisoslashuvi":["Специализация","Specialization"],
+"Ochilgan":["Основана","Founded"],
+"Hududlar":["Регионы","Regions"],
+"Xizmat ko'rsatgan":["Обслужено","Served"],
+"Omborlari":["Склады компании","Company warehouses"],
+"Statistika":["Статистика","Statistics"],
+"omborlar soni":["количество складов","number of warehouses"],
+"o'rtacha narx, so'm/m²":["средняя цена, сум/м²","average price, UZS/m²"],
+/* detail */
+"Tasdiqlangan ega":["Проверенный владелец","Verified owner"],
+"Band":["Занят","Occupied"],
+"Bo'sh":["Свободен","Available"],
+"Bu ombor band":["Этот склад занят","This warehouse is occupied"],
+"☎ Qo'ng'iroq qilish":["☎ Позвонить","☎ Call"],
+"✈ Telegramda yozish":["✈ Написать в Telegram","✈ Message on Telegram"],
+"Ijaraga beriladi":["Сдаётся","Available to rent"],
+"Umumiy hudud":["Общая площадь","Total area"],
+"Joylangan":["Размещено","Posted"],
+"Narx kalkulyatori":["Калькулятор стоимости","Price calculator"],
+"Maydon (m²)":["Площадь (м²)","Area (m²)"],
+"Muddat (oy)":["Срок (мес.)","Term (months)"],
+"Hisob: maydon × oy × narx/m².":["Расчёт: площадь × месяцы × цена/м².","Calculation: area × months × price/m²."],
+"So'rov yuborish":["Отправить заявку","Send request"],
+"⚑ Shikoyat qilish":["⚑ Пожаловаться","⚑ Report"],
+"Manzil":["Адрес","Address"],
+"Sharhlar":["Отзывы","Reviews"],
+"Hali sharh yo'q.":["Пока нет отзывов.","No reviews yet."],
+"Ishonch belgisi faqat admin ombor va hujjatlarni tekshirgandan keyin beriladi.":["Знак доверия выдаётся только после проверки склада и документов администратором.","The trust badge is granted only after an admin checks the warehouse and documents."],
+"Yozishmani ochish":["Открыть переписку","Open chat"],
+"Qo'riqlanadi 24/7":["Охраняется 24/7","Guarded 24/7"],
+"24/7 qo'riqlash":["Охрана 24/7","24/7 security"],
+"❄ Sovutgich":["❄ Холодильная камера","❄ Cold storage"],
+"⚙ Yuk texnikasi":["⚙ Погрузочная техника","⚙ Loading equipment"],
+"↗ Pandus":["↗ Пандус","↗ Ramp"],
+"◉ Video kuzatuv":["◉ Видеонаблюдение","◉ CCTV"],
+"🧯 Yong'in tizimi":["🧯 Противопожарная система","🧯 Fire protection"],
+"⚠ Xavfli moddalar litsenziyasi":["⚠ Лицензия на опасные вещества","⚠ Hazardous materials licence"],
+"Sharh va baho faqat shu ombordan foydalanganlar uchun.":["Отзыв и оценку могут оставить только те, кто пользовался этим складом.","Only people who have used this warehouse can leave a review and rating."],
+"Avval so'rov yuboring.":["Сначала отправьте заявку.","Send a request first."],
+"So'rovingiz yuborilgan, ega qabul qilgach sharh yozasiz.":["Ваша заявка отправлена. Отзыв можно будет написать после её принятия владельцем.","Your request has been sent. You can write a review once the owner accepts it."],
+"Sizning bahoingiz":["Ваша оценка","Your rating"],
+"Sharh":["Отзыв","Review"],
+"Ombordan foydalanish tajribangiz":["Ваш опыт использования склада","Your experience with the warehouse"],
+"Sharh qoldirish":["Оставить отзыв","Leave a review"],
+"Avval 1 dan 5 gacha baho tanlang":["Сначала выберите оценку от 1 до 5","First choose a rating from 1 to 5"],
+"Sharh matnini yozing":["Напишите текст отзыва","Write the review text"],
+"Sharh qo'shildi":["Отзыв добавлен","Review added"],
+"Siz bu ombordan foydalanasiz":["Вы пользуетесь этим складом","You are using this warehouse"],
+"Demo: ega qabul qildi":["Демо: владелец принял","Demo: owner accepted"],
+"Demo tugma ijara boshlanganini ko'rsatadi":["Демо-кнопка показывает, что аренда началась","The demo button shows that the rental has started"],
+"Ega so'rovni qabul qildi. Endi sharh qoldira olasiz":["Владелец принял заявку. Теперь вы можете оставить отзыв","The owner accepted the request. You can now leave a review"],
+/* product types */
+"Oziq-ovqat va qishloq xo'jaligi":["Продукты питания и сельское хозяйство","Food & agriculture"],
+"Qurilish materiallari":["Стройматериалы","Construction materials"],
+"Dori-darmon va tibbiyot vositalari":["Лекарства и медицинские изделия","Pharmaceuticals & medical supplies"],
+"Kiyim-kechak va to'qimachilik":["Одежда и текстиль","Clothing & textiles"],
+"Kimyoviy va xavfli moddalar":["Химические и опасные вещества","Chemical & hazardous materials"],
+"Elektronika va maishiy texnika":["Электроника и бытовая техника","Electronics & appliances"],
+/* regions */
+"Toshkent shahri":["г. Ташкент","Tashkent city"],
+"Toshkent viloyati":["Ташкентская область","Tashkent Region"],
+"Andijon viloyati":["Андижанская область","Andijan Region"],
+"Buxoro viloyati":["Бухарская область","Bukhara Region"],
+"Farg'ona viloyati":["Ферганская область","Fergana Region"],
+"Jizzax viloyati":["Джизакская область","Jizzakh Region"],
+"Namangan viloyati":["Наманганская область","Namangan Region"],
+"Navoiy viloyati":["Навоийская область","Navoiy Region"],
+"Qashqadaryo viloyati":["Кашкадарьинская область","Kashkadarya Region"],
+"Qoraqalpog'iston Respublikasi":["Республика Каракалпакстан","Republic of Karakalpakstan"],
+"Samarqand viloyati":["Самаркандская область","Samarkand Region"],
+"Sirdaryo viloyati":["Сырдарьинская область","Syrdarya Region"],
+"Surxondaryo viloyati":["Сурхандарьинская область","Surkhandarya Region"],
+"Xorazm viloyati":["Хорезмская область","Khorezm Region"],
+"Toshkent":["Ташкент","Tashkent"],"Andijon":["Андижан","Andijan"],"Buxoro":["Бухара","Bukhara"],"Farg'ona":["Фергана","Fergana"],"Jizzax":["Джизак","Jizzakh"],"Namangan":["Наманган","Namangan"],"Navoiy":["Навои","Navoiy"],"Qashqadaryo":["Кашкадарья","Kashkadarya"],"Qoraqalpog'iston":["Каракалпакстан","Karakalpakstan"],"Samarqand":["Самарканд","Samarkand"],"Sirdaryo":["Сырдарья","Syrdarya"],"Surxondaryo":["Сурхандарья","Surkhandarya"],"Xorazm":["Хорезм","Khorezm"],
+/* auth */
+"Kirish":["Войти","Log in"],
+"Hisobingizga kiring.":["Войдите в свой аккаунт.","Log in to your account."],
+"Telefon raqam":["Номер телефона","Phone number"],
+"Telefon":["Телефон","Phone"],
+"Parol":["Пароль","Password"],
+"Telefon yoki parol noto'g'ri. Ro'yxatdan o'tmagan bo'lsangiz, pastdagi tugmani bosing.":["Неверный телефон или пароль. Если вы не зарегистрированы, нажмите кнопку ниже.","Wrong phone or password. If you are not registered, press the button below."],
+"Sinash uchun: 90 111 22 33 / demo1234":["Для теста: 90 111 22 33 / demo1234","For testing: 90 111 22 33 / demo1234"],
+"Hali ro'yxatdan o'tmaganmisiz?":["Ещё не зарегистрированы?","Not registered yet?"],
+"Ro'yxatdan o'tish":["Регистрация","Sign up"],
+"Ismingiz":["Ваше имя","Your name"],
+"Siz kimsiz?":["Кто вы?","Who are you?"],
+"Ombor qidiruvchi":["Ищу склад","Warehouse seeker"],
+"Ombor egasi":["Владелец склада","Warehouse owner"],
+"Asoschi":["Основатель","Founder"],
+"Parol (kamida 6 belgi)":["Пароль (минимум 6 символов)","Password (at least 6 characters)"],
+"Parolni takrorlang":["Повторите пароль","Repeat password"],
+"Hisobim bor, kirish":["У меня есть аккаунт, войти","I have an account, log in"],
+"Telefon raqamni to'liq kiriting.":["Введите номер телефона полностью.","Enter the full phone number."],
+"Bu raqam bilan hisob bor. Kirish tugmasini bosing.":["Аккаунт с этим номером уже есть. Нажмите «Войти».","An account with this number already exists. Press “Log in”."],
+"Parollar bir xil emas.":["Пароли не совпадают.","Passwords do not match."],
+"Parolni ko'rsatish":["Показать пароль","Show password"],
+"Parolni yashirish":["Скрыть пароль","Hide password"],
+"Ro'yxatdan o'tdingiz":["Вы зарегистрировались","You have signed up"],
+"Siz hisobdan chiqdingiz":["Вы вышли из аккаунта","You have logged out"],
+"So'rov yuborish uchun hisobingizga kiring yoki ro'yxatdan o'ting.":["Чтобы отправить заявку, войдите или зарегистрируйтесь.","To send a request, log in or sign up."],
+"So'rov yuborish uchun hisobingizga kiring.":["Чтобы отправить заявку, войдите в аккаунт.","To send a request, log in."],
+"Omboringizni joylash uchun hisobingizga kiring.":["Чтобы разместить склад, войдите в аккаунт.","To post your warehouse, log in."],
+"Ega kabineti uchun hisobingizga kiring.":["Для кабинета владельца войдите в аккаунт.","Log in to open the owner dashboard."],
+"E'lon qoldirish uchun hisobingizga kiring.":["Чтобы оставить объявление, войдите в аккаунт.","To post a request, log in."],
+/* profile */
+"Hisob ochsangiz, ombor joylash va ega bilan yozishish mumkin.":["Создайте аккаунт, чтобы размещать склады и переписываться с владельцами.","Create an account to post warehouses and chat with owners."],
+"Sevimlilar":["Избранное","Favorites"],
+"Hali sevimli ombor yo'q.":["В избранном пока ничего нет.","No favorite warehouses yet."],
+"Parametrlar":["Настройки","Settings"],
+"Tungi rejim":["Ночной режим","Dark mode"],
+"Xabarlar":["Сообщения","Messages"],
+"Menga ombor kerak":["Мне нужен склад","I need a warehouse"],
+"Ega kabineti":["Кабинет владельца","Owner dashboard"],
+"Profilni sozlash":["Настройки профиля","Edit profile"],
+"Chiqish":["Выйти","Log out"],
+"Rasm tanlash":["Выбрать фото","Choose photo"],
+"Rasmni o'chirish":["Удалить фото","Remove photo"],
+"Ism":["Имя","Name"],
+"Saqlash":["Сохранить","Save"],
+"Bekor qilish":["Отмена","Cancel"],
+"Ismni kiriting.":["Введите имя.","Enter your name."],
+"Bu raqam boshqa hisobga tegishli.":["Этот номер принадлежит другому аккаунту.","This number belongs to another account."],
+"Profil saqlandi":["Профиль сохранён","Profile saved"],
+/* messages */
+"Yuborish":["Отправить","Send"],
+"Xabar yozing: qancha m² kerak, qancha muddatga?":["Напишите сообщение: сколько м² нужно и на какой срок?","Write a message: how many m² and for how long?"],
+"Yozishmani boshlang":["Начните переписку","Start the conversation"],
+"Hali yozishma yo'q. Ombor sahifasida «So'rov yuborish» tugmasini bosing.":["Переписок пока нет. Нажмите «Отправить заявку» на странице склада.","No conversations yet. Press “Send request” on a warehouse page."],
+"Qancha maydon kerakligini va qancha muddatga ekanini o'zingiz yozing.":["Напишите, какая площадь нужна и на какой срок.","Write how much space you need and for how long."],
+"Assalomu alaykum! Qancha maydon va qancha muddatga kerak?":["Здравствуйте! Какая площадь и на какой срок вам нужна?","Hello! How much space do you need, and for how long?"],
+"Joy bor, narxni kelishib olamiz. Qachondan boshlamoqchisiz?":["Место есть, цену обсудим. С какого числа хотите начать?","There is space, we can agree on the price. When would you like to start?"],
+"Yaxshi, telefon orqali ham bog'lanishingiz mumkin.":["Хорошо, можете также связаться со мной по телефону.","Good, you can also reach me by phone."],
+/* add form */
+"Ma'lumot va rasmlarni kiriting, ombor qidiruvchilar ro'yxatida darhol chiqadi.":["Введите данные и фото — склад сразу появится в списке для арендаторов.","Enter the details and photos — the warehouse will appear in the seekers' list right away."],
+"Ombor nomi":["Название склада","Warehouse name"],
+"masalan, Sergeli ombor kompleksi":["например, складской комплекс Сергели","e.g. Sergeli warehouse complex"],
+"Kompaniya nomi":["Название компании","Company name"],
+"masalan, Logistik Markaz MCHJ":["например, ООО Логистик Марказ","e.g. Logistik Markaz LLC"],
+"Viloyat":["Область","Region"],
+"Tuman yoki shahar":["Район или город","District or city"],
+"Aniq manzil":["Точный адрес","Exact address"],
+"masalan, Sanoat ko'chasi, 14-uy":["например, ул. Саноат, д. 14","e.g. Sanoat Street, No. 14"],
+"Umumiy maydon (m²)":["Общая площадь (м²)","Total area (m²)"],
+"Ijaraga beriladigan maydon (m²)":["Сдаваемая площадь (м²)","Area for rent (m²)"],
+"Eng kam ijara (m²)":["Минимальная аренда (м²)","Minimum rental (m²)"],
+"Narx (so'm/m², oyiga)":["Цена (сум/м², в месяц)","Price (UZS/m² per month)"],
+"Qaysi mahsulotlarga mos (bir nechtasini tanlang)":["Для каких товаров подходит (можно выбрать несколько)","Suitable for (select several)"],
+"Ombor sharoitlari":["Условия склада","Warehouse conditions"],
+"Sovutgich":["Холодильная камера","Cold storage"],
+"Yuk ko'taruvchi texnika":["Погрузочная техника","Loading equipment"],
+"Pandus":["Пандус","Ramp"],
+"Video kuzatuv":["Видеонаблюдение","CCTV"],
+"Yong'inga qarshi tizim":["Противопожарная система","Fire protection system"],
+"Xavfli moddalar litsenziyasi":["Лицензия на опасные вещества","Hazardous materials licence"],
+"Hujjatlar (tekshiruv uchun)":["Документы (для проверки)","Documents (for verification)"],
+"Rasm yuklash":["Загрузить фото","Upload photos"],
+"Bosing va 5 tagacha rasm tanlang":["Нажмите и выберите до 5 фото","Tap and choose up to 5 photos"],
+"Tanlangan rasm":["Выбранное фото","Selected photo"],
+"Qo'riqlanadi (24/7)":["Охраняется (24/7)","Guarded (24/7)"],
+"Omborni qo'shish":["Добавить склад","Add warehouse"],
+"Kamida bitta mahsulot turini tanlang.":["Выберите хотя бы один тип товара.","Choose at least one product type."],
+"Ijaraga beriladigan maydon umumiy maydondan katta bo'lmasligi kerak.":["Сдаваемая площадь не может быть больше общей.","The area for rent cannot be larger than the total area."],
+"Eng kam ijara maydoni ijaraga beriladigan maydondan katta bo'lmasligi kerak.":["Минимальная аренда не может быть больше сдаваемой площади.","The minimum rental cannot be larger than the area for rent."],
+"Ombor qo'shildi va ro'yxatda ko'rinadi":["Склад добавлен и виден в списке","Warehouse added and visible in the list"],
+"Ombor admin tekshiruvidan keyin tasdiqlanadi":["Склад будет подтверждён после проверки администратором","The warehouse will be verified after an admin check"],
+/* owner cabinet */
+"Kelgan so'rovlarni boshqaring, omborni band qiling va narxni yangilang.":["Управляйте поступившими заявками, отмечайте склад занятым и обновляйте цену.","Manage incoming requests, mark the warehouse as occupied and update the price."],
+"Narxni o'zgartirish":["Изменить цену","Change price"],
+"Band qilish":["Отметить занятым","Mark as occupied"],
+"Bo'shatish":["Освободить","Mark as available"],
+"Qabul qilish":["Принять","Accept"],
+"Rad etish":["Отклонить","Reject"],
+"Hali so'rov yo'q.":["Заявок пока нет.","No requests yet."],
+"Sizga tegishli omborlar topilmadi. Avval ombor joylang.":["Ваши склады не найдены. Сначала разместите склад.","No warehouses of yours found. Post a warehouse first."],
+"Bu bo'lim ombor egalari uchun.":["Этот раздел для владельцев складов.","This section is for warehouse owners."],
+"Narx yangilandi":["Цена обновлена","Price updated"],
+"Ombor band qilindi":["Склад отмечен занятым","Warehouse marked as occupied"],
+"Ombor bo'shatildi":["Склад освобождён","Warehouse marked as available"],
+"So'rov qabul qilindi":["Заявка принята","Request accepted"],
+"So'rov rad etildi":["Заявка отклонена","Request rejected"],
+"Yangi narx (so'm/m²):":["Новая цена (сум/м²):","New price (UZS/m²):"],
+/* need */
+"Talabingizni qoldiring — mos ombor egalari sizga taklif yuborishi mumkin.":["Оставьте свою заявку — подходящие владельцы складов смогут прислать вам предложение.","Leave your request — matching warehouse owners can send you an offer."],
+"Mahsulot turini tanlang":["Выберите тип товара","Choose product type"],
+"Kerakli maydon (m²)":["Нужная площадь (м²)","Required area (m²)"],
+"Hudud":["Регион","Region"],
+"Qo'shimcha talab":["Дополнительные требования","Additional requirements"],
+"Sovutgich, yuk ko'taruvchi texnika va hokazo":["Холодильная камера, погрузочная техника и т. д.","Cold storage, loading equipment, etc."],
+"E'lonni joylash":["Разместить объявление","Post request"],
+"Faol talablar":["Активные заявки","Active requests"],
+"Talab e'loni joylandi":["Объявление о потребности размещено","Your request has been posted"],
+"Ombor bo'yicha so'rov":["Заявка по складу","Warehouse request"],
+"So'rov egaga yuborildi":["Заявка отправлена владельцу","Request sent to the owner"],
+"Telegram orqali bog'lanish tayyorlandi":["Связь через Telegram подготовлена","Telegram contact prepared"],
+"Shikoyat sababini yozing:":["Укажите причину жалобы:","Write the reason for the report:"],
+"Shikoyat admin tekshiruviga yuborildi":["Жалоба отправлена на проверку администратору","The report has been sent for admin review"],
+"Sevimlilarga qo'shildi":["Добавлено в избранное","Added to favorites"],
+"Sevimlilardan olib tashlandi":["Удалено из избранного","Removed from favorites"],
+/* seed review texts */
+"Yuk mashinalari kirishi qulay, ega tez javob beradi.":["Удобный подъезд для грузовиков, владелец быстро отвечает.","Easy access for trucks, the owner replies quickly."],
+"Narxi yaxshi, faqat kechqurun qorong'i.":["Цена хорошая, только вечером темно.","Good price, only it gets dark in the evening."],
+"Sovutgich barqaror ishlaydi, mahsulotim buzilmadi.":["Холодильник работает стабильно, мой товар не испортился.","The refrigeration works steadily, my goods did not spoil."],
+"Katta, lekin qo'riqlash yo'q.":["Большой, но охраны нет.","Large, but there is no security."],
+"Toza, tartibli, hujjatlari to'liq.":["Чисто, порядок, документы в полном порядке.","Clean, well organised, documents are complete."],
+"Biroz qimmat, lekin ishonchli.":["Немного дороговато, но надёжно.","A bit pricey, but reliable."],
+"Meva-sabzavot uchun qulay, shamollatish yaxshi.":["Удобно для овощей и фруктов, хорошая вентиляция.","Convenient for fruit and vegetables, good ventilation."],
+"Joylashuvi qulay, ega halol va tez javob beradi.":["Удобное расположение, владелец честный и быстро отвечает.","Convenient location, the owner is honest and replies fast."],
+"Toza va quruq, narxi o'rtacha.":["Чисто и сухо, цена средняя.","Clean and dry, average price."],
+"Hammasi kelishilgandek bo'ldi, tavsiya qilaman.":["Всё прошло как договаривались, рекомендую.","Everything went as agreed, I recommend it."],
+"Yuk tushirish oson, qo'riqchi bor.":["Разгружать легко, есть охранник.","Easy to unload, there is a guard."],
+"Joyi yaxshi, lekin yo'li biroz yomon.":["Место хорошее, но дорога немного плохая.","Good place, but the road is a bit bad."],
+"Mahsulotim butun saqlandi, rahmat.":["Мой товар сохранился целым, спасибо.","My goods were kept intact, thank you."],
+"Ega bilan kelishish oson bo'ldi.":["С владельцем легко договориться.","It was easy to agree with the owner."],
+"Narxiga nisbatan juda yaxshi ombor.":["Очень хороший склад за такую цену.","A very good warehouse for the price."]
+});
+/* --- transliteration (Uzbek Latin -> Russian Cyrillic) for names --- */
+var T2={"sh":"ш","ch":"ч","ng":"нг","yo":"ё","yu":"ю","ya":"я","o'":"у","g'":"г"};
+var T1={a:"а",b:"б",d:"д",e:"е",f:"ф",g:"г",h:"х",i:"и",j:"ж",k:"к",l:"л",m:"м",n:"н",o:"о",p:"п",q:"к",r:"р",s:"с",t:"т",u:"у",v:"в",w:"в",x:"х",y:"й",z:"з",c:"ц"};
+function tlw(s){var out="",i=0,n=s.length;
+ while(i<n){var ch=s.charAt(i),low=ch.toLowerCase(),two=s.substr(i,2).toLowerCase(),res,len;
+  if(T2[two]){res=T2[two];len=2}
+  else if(T1[low]){res=T1[low];len=1;if(low==="e"&&i===0)res="э"}
+  else{if(ch!=="'")out+=ch;i++;continue}
+  if(ch!==low){var nx=s.charAt(i+len),second=len===2&&s.charAt(i+1)!==s.charAt(i+1).toLowerCase();
+   if(second||(nx&&nx!==nx.toLowerCase()))res=res.toUpperCase();else res=res.charAt(0).toUpperCase()+res.slice(1)}
+  out+=res;i+=len}
+ return out}
+function tl(s){return nz(s).split(/(\s+|-)/).map(function(w){return w==="MCHJ"?"ООО":tlw(w)}).join("")}
+function pnTr(s){return LANG==="ru"?tl(s):nz(s).replace(/\bMCHJ\b/g,"LLC")}
+function buildPN(){PN={};function a(x){if(x)PN[nz(x)]=1}
+ try{(window.W||[]).forEach(function(w){a(w.name);a(w.co);a(w.dist);(w.rv||[]).forEach(function(r){a(r.n)})});
+  var T=window.TUM||{};for(var v in T)T[v].forEach(a);
+  var U=window.users||{};for(var k in U)a(U[k].name);if(window.me)a(window.me.name)}catch(e){}}
+function nm(x){return PN[nz(x)]?pnTr(x):x}
+/* --- pattern rules --- */
+var R=[
+ [/^(\d+) ta$/,function(m){return m[1]}],
+ [/^Profil: (.+)$/,function(m){return X("Профиль: "+nm(m[1]),"Profile: "+nm(m[1]))}],
+ [/^(\d+) m² dan (\d+) m² gacha$/,function(m){return X("от "+m[1]+" м² до "+m[2]+" м²",m[1]+" m² to "+m[2]+" m²")}],
+ [/^Joylangan: (.+)$/,function(m){return X("Размещено: "+m[1],"Posted: "+m[1])}],
+ [/^(\d+) ta ombor$/,function(m){return X(m[1]+" "+pl(m[1],"склад","склада","складов"),m[1]+(m[1]==="1"?" warehouse":" warehouses"))}],
+ [/^(\d[\d ]*) kishi$/,function(m){var n=m[1].replace(/ /g,"");return X(m[1]+" "+pl(n,"клиент","клиента","клиентов"),m[1]+(n==="1"?" customer":" customers"))}],
+ [/^(\d{4})-yil$/,function(m){return X(m[1]+" г.",m[1])}],
+ [/^\((\d+) sharh\)$/,function(m){return X("("+m[1]+" "+pl(m[1],"отзыв","отзыва","отзывов")+")","("+m[1]+(m[1]==="1"?" review":" reviews")+")")}],
+ [/^(\d+) oy$/,function(m){return X(m[1]+" мес.",m[1]+" mo.")}],
+ [/^(\d+) ball$/,function(m){return X(m[1]+" "+pl(m[1],"балл","балла","баллов"),m[1]+(m[1]==="1"?" star":" stars"))}],
+ [/^Salom, (.+)$/,function(m){return X("Здравствуйте, "+nm(m[1]),"Hello, "+nm(m[1]))}],
+ [/^Kelgan so'rovlar \((\d+)\)$/,function(m){return X("Поступившие заявки ("+m[1]+")","Incoming requests ("+m[1]+")")}],
+ [/^Ega: (.+)\. Demo: ega javobi avtomatik yoziladi\.$/,function(m){return X("Владелец: "+m[1]+". Демо: ответ владельца пишется автоматически.","Owner: "+m[1]+". Demo: the owner's reply is written automatically.")}],
+ [/^(.+) ko'chasi$/,function(m){return X("ул. "+tl(m[1]),m[1]+" St.")}],
+ [/^(\d+)-uy$/,function(m){return X("д. "+m[1],"No. "+m[1])}],
+ [/^(.+) shahri$/,function(m){return X("г. "+tl(m[1]),m[1]+" city")}],
+ [/^(.+) tumani$/,function(m){return X(tl(m[1])+" район",m[1]+" District")}]
+];
+function unit(s){var k=nz(s),r=LANG==="ru"?k.replace(/m²/g,"м²").replace(/so'm/g,"сум"):k.replace(/so'm/g,"UZS");return r!==k?r:s}
+var OKRE=/^(ombor\.uz|\.uz|ombor|UZ|RU|EN|Telegram|Demo|demo\d+|[\d\s+().,:;\/\-–×%★↗·]+)$/;
+var R2=R.splice(R.length-3,3);
+function pick(k,rules){for(var i=0;i<rules.length;i++){var m=k.match(rules[i][0]);if(m)return rules[i][1](m)}return null}
+function leaf(core){var k=nz(core),e=D[k];if(e)return e[LANG==="ru"?0:1];
+ var r=pick(k,R);if(r!==null)return r;r=pick(k,R2);if(r!==null)return r;
+ if(PN[k])return pnTr(core);
+ var u=unit(core);
+ if(DEBUG&&u===core&&/[A-Za-z]{2}/.test(core)&&!OKRE.test(core.trim()))MISS[core]=1;
+ return u}
+function tx2(core){var k=nz(core),e=D[k];if(e)return e[LANG==="ru"?0:1];
+ var r=pick(k,R);if(r!==null)return r;
+ var parts=core.split(/( · |, )/);
+ if(parts.length>1)return parts.map(function(p,i){return i%2?p:tx2(p)}).join("");
+ return leaf(core)}
+function tx(core){return LANG==="uz"?core:tx2(core)}
+/* --- DOM walker --- */
+var SKIP={SCRIPT:1,STYLE:1,TEXTAREA:1,NOSCRIPT:1},ATTR=["placeholder","aria-label","title","alt"];
+function tnode(n){var v=n.nodeValue,o;
+ if(n.__t!==undefined&&v===n.__t)o=n.__o;else{o=v;n.__o=v}
+ var m=o.match(/^(\s*)([\s\S]*?)(\s*)$/),r=m[2]?m[1]+tx(m[2])+m[3]:o;
+ n.__t=r;if(v!==r)n.nodeValue=r}
+function tattrs(el){for(var i=0;i<ATTR.length;i++){var a=ATTR[i];if(!el.hasAttribute(a))continue;
+ var st=el.__oa||(el.__oa={}),cur=el.getAttribute(a);
+ if(st[a]===undefined||st[a+"~"]!==cur){st[a]=cur}
+ var r=tx(st[a]);st[a+"~"]=r;if(cur!==r)el.setAttribute(a,r)}}
+function walk(n){
+ if(n.nodeType===3){var p=n.parentNode;if(p&&p.nodeType===1&&p.classList&&p.classList.contains("me")&&p.classList.contains("bub"))return;tnode(n);return}
+ if(n.nodeType!==1||n.nodeName==="SCRIPT"||n.nodeName==="STYLE")return;
+ tattrs(n);
+ if(SKIP[n.nodeName])return;
+ for(var c=n.firstChild;c;c=c.nextSibling)walk(c)}
+var CFG={childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:ATTR},mo;
+function run(fn){mo.disconnect();try{fn()}finally{mo.observe(document.body,CFG)}}
+mo=new MutationObserver(function(recs){if(LANG==="uz")return;
+ run(function(){buildPN();recs.forEach(function(r){
+  if(r.type==="childList")for(var i=0;i<r.addedNodes.length;i++)walk(r.addedNodes[i]);
+  else if(r.type==="characterData"){if(r.target.nodeType===3)walk(r.target)}
+  else if(r.type==="attributes")tattrs(r.target)})})});
+var TITLE="ombor.uz: ombor ijarasi";
+function setLang(l){if(l!=="uz"&&l!=="ru"&&l!=="en")l="uz";LANG=l;
+ try{localStorage.setItem("om-lang",l)}catch(e){}
+ document.documentElement.lang=l;
+ run(function(){buildPN();walk(document.body);document.title=LANG==="uz"?TITLE:tx(TITLE)});
+ [].forEach.call(document.querySelectorAll("[data-lang]"),function(b){b.classList.toggle("on",b.dataset.lang===l);b.setAttribute("aria-pressed",String(b.dataset.lang===l))})}
+/* prompt() texts are not in the DOM */
+var _prompt=window.prompt;window.prompt=function(m,d){return _prompt.call(window,tx(String(m)),d)};
+[].forEach.call(document.querySelectorAll("[data-lang]"),function(b){b.onclick=function(){setLang(b.dataset.lang)}});
+window.__i18n={set:setLang,get:function(){return LANG},miss:function(){return Object.keys(MISS)},tx:tx};
+var saved="uz";try{saved=localStorage.getItem("om-lang")||"uz"}catch(e){}
+mo.observe(document.body,CFG);
+setLang(saved);
+})();
+</script>
+</body>
+</html>
